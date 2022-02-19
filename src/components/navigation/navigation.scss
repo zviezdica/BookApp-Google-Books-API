@@ -1,3 +1,31 @@
 .route-link {
   @apply uppercase text-17 hover:text-peacock-blue cursor-pointer transition-color;
 }
+.nav-icon span {
+  @apply block absolute h-6 xs:h-9 w-full bg-dark-blue rounded-md opacity-100 left-0 rotate-0 transition-all;
+  &:nth-child(1) {
+    @apply top-0;
+  }
+  &:nth-child(2),
+  &:nth-child(3) {
+    @apply top-12 xs:top-18;
+  }
+  &:nth-child(4) {
+    @apply top-24 xs:top-36;
+  }
+}
+
+.nav-icon.open span {
+  &:nth-child(1) {
+    @apply top-18 w-0 left-1/2;
+  }
+  &:nth-child(2) {
+    @apply rotate-45;
+  }
+  &:nth-child(3) {
+    @apply -rotate-45;
+  }
+  &:nth-child(4) {
+    @apply top-18 w-0 left-1/2;
+  }
+}

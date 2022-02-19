@@ -8,7 +8,7 @@ module.exports = {
     screens: {
       "2xs": "360px",
       // => @media (min-width: 360px) { ... }
-      xs: "576px",
+      xs: "450px",
       // => @media (min-width: 576px) { ... }
       sm: "768px",
       // => @media (min-width: 768px) { ... }
@@ -73,6 +73,7 @@ module.exports = {
       6: "6px",
       7: "7px",
       8: "8px",
+      9: "9px",
       10: "10px",
       12: "12px",
       14: "14px",
@@ -470,7 +471,7 @@ module.exports = {
     borderRadius: ["responsive", "focus"],
   },
   plugins: [
-    
+    require('tailwindcss-children'),
     plugin(function ({ addComponents }) {
       const containers = {
         ".container": {

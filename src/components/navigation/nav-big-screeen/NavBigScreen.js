@@ -8,8 +8,8 @@ const NavBigScreen = () =>{
                 <div className="w-1/5">
                     <div className="logo w-max opacity-90 mx-auto">
                     <Link to="/" >
-                        <div style={{backgroundImage:`url(${logoBlue})`}} className='h-70 w-70 bg-center bg-cover mx-auto'></div>
-                        <h4 className="uppercase text-dark-blue tracking-widest text-21 -my-10 text-center w-max mx-auto">libar</h4>
+                        <div style={{backgroundImage:`url(${logoBlue})`}} className='h-60 w-60 md:h-70 md:w-70 bg-center bg-cover mx-auto'></div>
+                        <h4 className="uppercase text-dark-blue tracking-widest text-18 md:text-21 -my-10 text-center w-max mx-auto">libar</h4>
                     </Link>
                     </div>
                 </div>
@@ -28,7 +28,7 @@ const NavBigScreen = () =>{
                     </Link>
             </div>
             <div className="w-1/5 relative">
-                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white">log in</button>
+                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-5 md:px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white">log in</button>
             </div>
            
         </section>

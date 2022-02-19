@@ -11,7 +11,7 @@ import SearchBooks from './components/search-books/SearchBooks';
 import MyBookshelf from './components/bookshelf/MyBookshelf';
 
 function App() {
-  const bigScreen = useMediaQuery({query:"(min-width: 992px)" })
+  const bigScreen = useMediaQuery({query:"(min-width: 768px)" })
   const [isIntroActive, setIsIntroActive]= useState(true)
 
   useEffect(()=>{
