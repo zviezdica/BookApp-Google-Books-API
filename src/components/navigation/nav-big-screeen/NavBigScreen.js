@@ -3,13 +3,13 @@ import logoBlue from "../../../images/logo/logo-blue.png"
 
 const NavBigScreen = () =>{
     return(
-        <section className="container flex ">
+        <section className="container flex">
             
                 <div className="w-1/5">
                     <div className="logo w-max opacity-90 mx-auto">
                     <Link to="/" >
                         <div style={{backgroundImage:`url(${logoBlue})`}} className='h-60 w-60 md:h-70 md:w-70 bg-center bg-cover mx-auto'></div>
-                        <h4 className="uppercase text-dark-blue tracking-widest text-18 md:text-21 -my-10 text-center w-max mx-auto">libar</h4>
+                        <h4 className="uppercase text-dark-blue tracking-widest text-18 md:text-21 -mt-10 mb-5 text-center w-max mx-auto">libar</h4>
                     </Link>
                     </div>
                 </div>

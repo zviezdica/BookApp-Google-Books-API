@@ -1,5 +1,5 @@
 .route-link {
-  @apply uppercase text-17 hover:text-peacock-blue cursor-pointer transition-color;
+  @apply uppercase text-21 sm:text-17 md:text-21 hover:text-peacock-blue cursor-pointer transition-color;
 }
 
 .nav-icon span {

@@ -155,6 +155,7 @@ module.exports = {
       210: "210px",
       212: "212px",
       213: "213px",
+      218: "218px",
       220: "220px",
       224: "224px",
       230: "230px",
@@ -228,6 +229,7 @@ module.exports = {
     colors: {
         "light-grey": "#f2f2f2",
         "pale-grey": "#f7f9fb",
+        "greyish": "#e6e6e6",
     //     "pale-opacity": "#f7f9fb99",
         "white": "#ffffff",
         "white-opacity": "#ffffffe6",
