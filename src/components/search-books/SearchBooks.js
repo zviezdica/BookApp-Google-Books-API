@@ -63,11 +63,10 @@ const SearchBooks = () =>{
                             <div style={{backgroundImage:`url(${NoResults})`}} className='bg-contain bg-no-repeat bg-center h-50 w-50 mr-10'></div>
                             <h3 className='text-17'><b>No results!</b> Try something else.</h3>
                         </div>}
-                        {searchResult && <div>
+                        {searchResult && <div className='flex flex-wrap justify-evenly'>
                             {searchResult.data.items.map((item=>{
-                                console.log(item);
                                 return(
-                                    <ResultItem />
+                                    <ResultItem key={item.id} item={item}/>
                                 )
                             }))}
                             </div>}

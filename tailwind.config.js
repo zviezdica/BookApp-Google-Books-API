@@ -262,6 +262,8 @@ module.exports = {
     },
     boxShadow :{
       bottom: '0 4px 4px -3px #BFBFBF',
+      card: '0 0 7px 0 rgba(0,0,0,0.1)',
+      hover: '0 0 7px 0 rgba(0,0,0,0.2)',
     },
     borderWidth:{
         '0': '0px',
