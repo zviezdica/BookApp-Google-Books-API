@@ -306,6 +306,7 @@ module.exports = {
       },
       backgroundPosition: {
         'to-center': "center 75%",
+        'to-left' : "10px center"
       },
       backgroundSize: {
         '80': "80%",
