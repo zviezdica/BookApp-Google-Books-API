@@ -35,17 +35,17 @@ function App() {
   return (
     <Router>
       <div className="App relative min-h-100vh ">
-        {isIntroActive && <div className='intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-1'>
+        {isIntroActive && <div className='intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-2'>
                 <div style={{backgroundImage:`url(${logoTransparent})`}} className='h-1/2 w-1/2 bg-center bg-cover absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'></div>
                 <h1 className='logo-text uppercase text-35 sm:text-45 text-white transition-all duration-2000 absolute top-3/5 sm:top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 tracking-tighter opacity-0'>libar</h1>
               </div>} 
-          <header className='w-full fixed top-0 '>
+          <header className='w-full xs:fixed top-0 bg-white z-1'>
             <nav className='h-full w-full shadow-bottom'>
               {!bigScreen && <NavSmallScreen />}
               {bigScreen && <NavBigScreen />}
           </nav>
           </header>
-          <main>
+          <main >
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/search" element={<SearchBooks />}/>

@@ -26,14 +26,14 @@ const NavSmallScreen = () =>{
             <div className={"text-center transition-all overflow-hidden duration-300 " + (isNavOpened? "h-218" : "h-0")}>
                 <div>
                     <Link to="/search" >
-                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish">search books</h4>
+                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish" onClick={()=>setIsNavOpened(false)}>search books</h4>
                     </Link>
                 </div>
                     <Link to="/" >
-                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish">home</h4>
+                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish" onClick={()=>setIsNavOpened(false)}>home</h4>
                     </Link>
                     <Link to="/bookshelf" >
-                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish">my bookshelf</h4>
+                        <h4 className="route-link py-20 border-b-1 border-solid border-greyish" onClick={()=>setIsNavOpened(false)}>my bookshelf</h4>
                     </Link>
             </div>
                 

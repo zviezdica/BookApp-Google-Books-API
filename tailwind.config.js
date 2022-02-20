@@ -237,6 +237,8 @@ module.exports = {
         "dark-blue": "#101220",
         "dark-navy-blue": "#000115",
         "transparent-dark-blue" : "#001a66e6",
+        "transparent-blue" : "#001a664d",
+        "blueish" : "#e3e6fa",
         "dark": "#141f2c",
         "battleship-grey": "#6d7784",
         "lighter-grey":"#b3b3b3",
@@ -322,7 +324,12 @@ module.exports = {
       wide: '.025em',
       wider: '.05em',
       widest: '.5em',
-    }
+    },
+    rotate: {
+      "17": "17deg",
+      "20": "20deg",
+      
+      },
 
     },
   },
