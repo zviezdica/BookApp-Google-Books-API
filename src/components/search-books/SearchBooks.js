@@ -3,6 +3,7 @@ import searchBackground from "../../images/backgrounds/bookshelf.jpg";
 import SearchIcon from "../../images/icons/search.png"
 import NoResults from "../../images/icons/no-results.png"
 import ResultItem from './ResultItem';
+import SearchItemDetails from './SearchItemDetails';
 
 const axios = require('axios');
 
@@ -11,10 +12,25 @@ const SearchBooks = () =>{
     const [searchValue, setSearchValue] = useState('');
     const [showResults, setShowResults] = useState(false);
     const [searchResult, setSearchResult] = useState('');
+    const [showDetails, setShowDetails] = useState('');
 
     const handleChange = (e) =>{
-        setInput(e.target.value)
-        
+        setInput(e.target.value) 
+    }
+
+    const handleSearch = (e) =>{
+        if(e.key==='Enter'){
+            setSearchValue(input);
+            setInput('');
+        }
+        else return;
+    }
+
+    const handleDetails = (id) =>{
+        let item = searchResult.data.items.filter(item=>item.id === id)
+        setShowDetails(item)
+        console.log(showDetails)
+
     }
 
     useEffect(()=>{
@@ -43,18 +59,18 @@ const SearchBooks = () =>{
                         <label htmlFor='searchBook' className='text-30 sm:text-35 md:text-45 text-white pb-10 sm:pb-15 md:pb-20' >Search for a book:</label>
                         <div className='p-2 md:p-3 bg-white container rounded-full w-9/10 xs:w-7/10'>
                             <input className='w-full pl-50 rounded-full text-17 md:text-21 bg-contain bg-no-repeat bg-to-left' style={{backgroundImage:`url(${SearchIcon})`}}
-                            type="text"
+                            type='text'
                             name='searchBook' 
                             id='searchBook'
                             onChange={handleChange}
-                            onKeyPress={e=>e.key==='Enter'? setSearchValue(input):null}
+                            onKeyPress={handleSearch}
                             value={input}
+                            placeholder='e.g. Harry Potter'
                             ></input>
                         </div>
                     </div>
                 </div>
-                {showResults &&
-                    <div className='container pt-20'>
+                {showResults &&<div className='container pt-20'>
                         {!searchResult && <div className='flex justify-center items-center my-30'>
                             <div style={{backgroundImage:`url(${NoResults})`}} className='bg-contain bg-no-repeat bg-center h-50 w-50 mr-10'></div>
                             <h3 className='text-17'><b>No results!</b> Try something else.</h3>
@@ -62,12 +78,12 @@ const SearchBooks = () =>{
                         {searchResult && <div className='flex flex-wrap justify-evenly'>
                             {searchResult.data.items.map((item=>{
                                 return(
-                                    <ResultItem key={item.id} item={item}/>
+                                    <ResultItem key={item.id} item={item} handleDetails={handleDetails}/>
                                 )
                             }))}
                             </div>}
-                    </div>
-                }
+                </div>}
+                {showDetails && <SearchItemDetails data={showDetails}/>}
             
             
         </section>

@@ -33,4 +33,12 @@
 .nav-icon.open span:nth-child(4) {
   @apply top-18 w-0 left-1/2;
 }
+
+.book-card {
+  @apply shadow-card hover:shadow-hover cursor-pointer transition-all duration-200 mb-30 flex flex-col justify-center items-center p-10 w-full sm:w-2/5 md:w-3/10;
+}
+
+.book-card:hover .see-more {
+  opacity: 1;
+}
 /*# sourceMappingURL=App.css.map */

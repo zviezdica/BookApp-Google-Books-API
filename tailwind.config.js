@@ -237,7 +237,7 @@ module.exports = {
         "dark-blue": "#101220",
         "dark-navy-blue": "#000115",
         "transparent-dark-blue" : "#001a66e6",
-        "transparent-blue" : "#001a664d",
+        "transparent-blue" : "#001a6666",
         "blueish" : "#e3e6fa",
         "dark": "#141f2c",
         "battleship-grey": "#6d7784",
@@ -263,7 +263,7 @@ module.exports = {
     boxShadow :{
       bottom: '0 4px 4px -3px #BFBFBF',
       card: '0 0 7px 0 rgba(0,0,0,0.1)',
-      hover: '0 0 7px 0 rgba(0,0,0,0.2)',
+      hover: '0 0 7px 0 rgba(0,0,0,0.15)',
     },
     borderWidth:{
         '0': '0px',

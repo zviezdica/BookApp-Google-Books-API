@@ -21,7 +21,6 @@ function App() {
       logoText.classList.add("tracking-widest")
       logoText.classList.remove("opacity-0")
       logoText.classList.add("opacity-100")
-      console.log(logoText)
       setTimeout(()=>{
         let introCover = document.querySelector(".intro-cover");
         introCover.classList.add("opacity-0")

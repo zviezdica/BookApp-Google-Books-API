@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,MAAM,CAAN,wJAAM;CAMP;;AAPD,AAGI,UAHM,AAEP,MAAM,CACL,SAAS,CAAC;EACR,OAAO,EAAE,CAAC;CACX",
+    "sources": [
+        "search-books.scss"
+    ],
+    "names": [],
+    "file": "search-books.css"
+}
