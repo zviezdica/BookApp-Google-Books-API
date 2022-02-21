@@ -1,8 +1,32 @@
 .book-card {
-  @apply shadow-card hover:shadow-hover cursor-pointer transition-all duration-200 mb-30 flex flex-col justify-center items-center p-10 w-full sm:w-2/5 md:w-3/10;
+  @apply shadow-card hover:shadow-hover cursor-pointer transition-all mb-30 flex flex-col justify-center items-center p-10 w-full sm:w-2/5 md:w-3/10;
 }
 
 .book-card:hover .see-more {
   opacity: 1;
+}
+
+.btn {
+  color: #31302b;
+  background: #fff;
+  padding: 5px 10px;
+  border: 1px solid #31302b;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  border-radius: 2px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 0 0 0 #31302b;
+          box-shadow: inset 0 0 0 0 #31302b;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.btn:hover {
+  -webkit-box-shadow: inset 210px 0 0 0 #31302b;
+          box-shadow: inset 210px 0 0 0 #31302b;
+  color: #fff;
 }
 /*# sourceMappingURL=search-books.css.map */

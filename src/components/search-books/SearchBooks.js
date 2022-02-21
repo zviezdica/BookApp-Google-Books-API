@@ -29,7 +29,6 @@ const SearchBooks = () =>{
     const handleDetails = (id) =>{
         let item = searchResult.data.items.filter(item=>item.id === id)
         setShowDetails(item)
-        console.log(showDetails)
 
     }
 
