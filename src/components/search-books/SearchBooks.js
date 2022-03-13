@@ -10,14 +10,18 @@ const axios = require('axios');
 const SearchBooks = () =>{
     const [input, setInput] = useState('');
     const [searchValue, setSearchValue] = useState('');
+    const [showResultsList, setShowResultsList] = useState(false)
+    const [resultsList, setResultsList] = useState('');
     const [showResults, setShowResults] = useState(false);
     const [searchResult, setSearchResult] = useState('');
     const [showDetails, setShowDetails] = useState('');
 
+    //on changing search input
     const handleChange = (e) =>{
         setInput(e.target.value) 
     }
 
+    //on search
     const handleSearch = (e) =>{
         if(e.key==='Enter'){
             setSearchValue(input);
@@ -26,12 +30,14 @@ const SearchBooks = () =>{
         else return;
     }
 
+    //'see more' about book
     const handleDetails = (id) =>{
         let item = searchResult.data.items.filter(item=>item.id === id)
         setShowDetails(item)
 
     }
 
+    //get and show search result data
     useEffect(()=>{
         let apiRoot = 'https://www.googleapis.com/books/v1/volumes?q=';
         let apiSearchText = searchValue.trim().replaceAll(' ', '+');
@@ -51,6 +57,27 @@ const SearchBooks = () =>{
         else return;
     },[searchValue])
 
+    //get and show results list
+    useEffect(()=>{
+        let apiRoot = 'https://www.googleapis.com/books/v1/volumes?q=';
+        let apiSearchText = input.trim().replaceAll(' ', '+');
+        if(apiSearchText){
+            axios.get(apiRoot+apiSearchText)
+            .then(response=> {
+                if(response.data.items){
+                    setResultsList(response)
+                }
+                else{
+                    setResultsList('')
+                }   
+                setShowResultsList(true)})
+            .catch(error=> console.log(error))
+            .then(()=> console.log('done'))
+        }
+        else return;
+    },[input])
+
+
         return(
         <section className='pt-40 xs:pt-150'>
                 <div className='relative pt-1/2 sm:pt-2/5 md:pt-1/3 bg-cover bg-center bg-no-repeat ' style={{backgroundImage:`url(${searchBackground})`}}>
@@ -69,7 +96,7 @@ const SearchBooks = () =>{
                         </div>
                     </div>
                 </div>
-                {showResults &&<div className='container pt-20'>
+                {showResults && <div className='container pt-20'>
                         {!searchResult && <div className='flex justify-center items-center my-30'>
                             <div style={{backgroundImage:`url(${NoResults})`}} className='bg-contain bg-no-repeat bg-center h-50 w-50 mr-10'></div>
                             <h3 className='text-17'><b>No results!</b> Try something else.</h3>
