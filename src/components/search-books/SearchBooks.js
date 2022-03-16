@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import searchBackground from "../../images/backgrounds/bookshelf.jpg";
 import SearchIcon from "../../images/icons/search.png"
 import NoResults from "../../images/icons/no-results.png"
@@ -8,6 +9,8 @@ import SearchItemDetails from './SearchItemDetails';
 const axios = require('axios');
 
 const SearchBooks = () =>{
+    const bigScreen = useMediaQuery({query:"(min-width: 768px)" })
+
     const [input, setInput] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [showResultsList, setShowResultsList] = useState(false)
@@ -33,7 +36,7 @@ const SearchBooks = () =>{
     //'see more' about book
     const handleDetails = (id) =>{
         let item = searchResult.data.items.filter(item=>item.id === id)
-        setShowDetails(item)
+        setShowDetails(item[0])
 
     }
 
@@ -61,20 +64,22 @@ const SearchBooks = () =>{
     useEffect(()=>{
         let apiRoot = 'https://www.googleapis.com/books/v1/volumes?q=';
         let apiSearchText = input.trim().replaceAll(' ', '+');
-        if(apiSearchText){
+        if(apiSearchText.length>2){
             axios.get(apiRoot+apiSearchText)
             .then(response=> {
                 if(response.data.items){
                     setResultsList(response)
+                    setShowResultsList(true)
+                    console.log(resultsList)
                 }
                 else{
                     setResultsList('')
                 }   
-                setShowResultsList(true)})
+            }) 
             .catch(error=> console.log(error))
             .then(()=> console.log('done'))
         }
-        else return;
+        else setShowResultsList(false);
     },[input])
 
 
@@ -83,7 +88,7 @@ const SearchBooks = () =>{
                 <div className='relative pt-1/2 sm:pt-2/5 md:pt-1/3 bg-cover bg-center bg-no-repeat ' style={{backgroundImage:`url(${searchBackground})`}}>
                     <div className='bg-transparent-blue flex flex-col justify-center items-center absolute left-0 top-0 bottom-0 right-0'> 
                         <label htmlFor='searchBook' className='text-30 sm:text-35 md:text-45 text-white pb-10 sm:pb-15 md:pb-20' >Search for a book:</label>
-                        <div className='p-2 md:p-3 bg-white container rounded-full w-9/10 xs:w-7/10'>
+                        <div className='p-2 md:p-3 bg-white container rounded-full w-9/10 xs:w-7/10 relative'>
                             <input className='w-full pl-50 rounded-full text-17 md:text-21 bg-contain bg-no-repeat bg-to-left' style={{backgroundImage:`url(${SearchIcon})`}}
                             type='text'
                             name='searchBook' 
@@ -93,7 +98,17 @@ const SearchBooks = () =>{
                             value={input}
                             placeholder='e.g. Harry Potter'
                             ></input>
+                            {showResultsList && <div className='absolute top-33 md:top-45 p-5 md:p-8 bg-white-opacity rounded-md'>
+                            <ul>
+                                {resultsList.data.items.slice(bigScreen?(0,0) :(0,5)).map((result) =>{
+                                    return(
+                                    <li className='p-3 text-14 md:text-16 hover:text-peacock-blue cursor-pointer' key={`list${result.id}`} onClick={()=>setShowDetails(result)}>{result.volumeInfo.title}</li>
+                                    )
+                                })}
+                            </ul>
+                        </div>}
                         </div>
+                        
                     </div>
                 </div>
                 {showResults && <div className='container pt-20'>

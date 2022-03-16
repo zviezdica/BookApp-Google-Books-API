@@ -2,7 +2,7 @@ import logoBlue from "../../images/logo/logo-blue.png"
 
 const SearchItemDetails = ({data}) =>{
     console.log(data)
-    const {id, epub, pdf, saleInfo, volumeInfo } = data[0];
+    const {id, epub, pdf, saleInfo, volumeInfo } = data;
     console.log(volumeInfo)
     const {authors, categories, description, imageLinks, industryIdentifiers, language, pageCount, previewLink, publishedDate, publisher, subtitle, title} = volumeInfo;
     return(
