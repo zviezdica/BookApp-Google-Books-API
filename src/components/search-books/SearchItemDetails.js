@@ -6,7 +6,7 @@ const SearchItemDetails = ({data}) =>{
     console.log(volumeInfo)
     const {authors, categories, description, imageLinks, industryIdentifiers, language, pageCount, previewLink, publishedDate, publisher, subtitle, title} = volumeInfo;
     return(
-        <div className="details-card flex flex-col container bg-white fixed top-150 left-1/2 -translate-x-1/2  p-10">
+        <div className="details-card shadow-card flex flex-col container max-h-70vh bg-white overflow-y-scroll fixed top-100 xs:top-130 lg:top-200 left-1/2 -translate-x-1/2 p-10">
 
                     <div>
                         {imageLinks && <img className="rounded-sm w-100 sm:w-200 my-10 mx-20 float-left" src={imageLinks.thumbnail}></img>}
