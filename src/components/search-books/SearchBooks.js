@@ -37,6 +37,7 @@ const SearchBooks = () =>{
     const handleDetails = (id) =>{
         let item = searchResult.data.items.filter(item=>item.id === id)
         setShowDetails(item[0])
+        setShowResultsList(false);
     }
 
     //'see more' about book - book from list
@@ -44,6 +45,11 @@ const SearchBooks = () =>{
         setShowDetails(result);
         setShowResultsList(false);
 
+    }
+
+    //close details card
+    const handleCloseDetails = () =>{
+        setShowDetails(false)
     }
 
     //get and show search result data
@@ -130,7 +136,7 @@ const SearchBooks = () =>{
                             }))}
                             </div>}
                 </div>}
-                {showDetails && <SearchItemDetails data={showDetails}/>}
+                {showDetails && <SearchItemDetails data={showDetails} closeDetails={handleCloseDetails}/>}
             
             
         </section>
