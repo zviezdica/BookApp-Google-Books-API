@@ -37,6 +37,12 @@ const SearchBooks = () =>{
     const handleDetails = (id) =>{
         let item = searchResult.data.items.filter(item=>item.id === id)
         setShowDetails(item[0])
+    }
+
+    //'see more' about book - book from list
+    const handleListBookDetails = (result) =>{
+        setShowDetails(result);
+        setShowResultsList(false);
 
     }
 
@@ -102,7 +108,7 @@ const SearchBooks = () =>{
                             <ul>
                                 {resultsList.data.items.slice(bigScreen?(0,0) :(0,5)).map((result) =>{
                                     return(
-                                    <li className='p-3 text-14 md:text-16 hover:text-peacock-blue cursor-pointer' key={`list${result.id}`} onClick={()=>setShowDetails(result)}>{result.volumeInfo.title}</li>
+                                    <li className='p-3 text-14 md:text-16 hover:text-peacock-blue cursor-pointer' key={`list${result.id}`} onClick={()=>handleListBookDetails(result)}>{result.volumeInfo.title}</li>
                                     )
                                 })}
                             </ul>
