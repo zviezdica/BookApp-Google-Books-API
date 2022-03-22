@@ -29,6 +29,7 @@ const SearchBooks = () => {
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       setSearchValue(input);
+      setNumberOfResults(10);
       setInput("");
     } else return;
   };
@@ -74,8 +75,7 @@ const SearchBooks = () => {
           }
           setShowResults(true);
         })
-        .catch((error) => console.log(error))
-        .then(() => console.log("done"));
+        .catch((error) => console.log(error));
     } else return;
   }, [searchValue, numberOfResults]);
 
@@ -95,8 +95,7 @@ const SearchBooks = () => {
             setResultsList("");
           }
         })
-        .catch((error) => console.log(error))
-        .then(() => console.log("done"));
+        .catch((error) => console.log(error));
     } else setShowResultsList(false);
   }, [input]);
 
