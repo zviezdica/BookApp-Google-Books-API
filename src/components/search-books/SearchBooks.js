@@ -96,7 +96,6 @@ const SearchBooks = ({ passBookToRead }) => {
           if (response.data.items) {
             setResultsList(response);
             setShowResultsList(true);
-            console.log(resultsList);
           } else {
             setResultsList("");
           }
