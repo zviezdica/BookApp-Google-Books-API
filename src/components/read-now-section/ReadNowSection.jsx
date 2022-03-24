@@ -46,8 +46,8 @@ const ReadNowSection = ({book}) =>{
 
 
     return(
-        <section className="pt-40 xs:mt-150 border-red border.solid border-2">
-            {loaded? <div id="viewerCanvas" className="w-500 h-500" ref={canvasRef}></div> : <div>Script not loaded</div>}
+        <section className="pt-40 xs:pt-120 md:pt-100">
+            {loaded? <div id="viewerCanvas" className="w-9/10 h-80vh bg-red" ref={canvasRef}></div> : <div>Script not loaded</div>}
 
          <EmbeddedViewer />
         </section>
