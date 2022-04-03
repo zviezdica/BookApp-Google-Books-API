@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import close from "../../images/icons/close.png";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
-  const { id, epub, pdf, saleInfo, volumeInfo } = data;
+  const { id, accessInfo, volumeInfo } = data;
+  console.log(data);
 
   const {
     authors,
@@ -19,6 +20,8 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     subtitle,
     title,
   } = volumeInfo;
+
+  const { embeddable } = accessInfo;
 
   const handleReadNow = (industryIdentifiers) => {
     if (!industryIdentifiers) return;
@@ -66,7 +69,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           </a>
         )}
 
-        {industryIdentifiers && (
+        {industryIdentifiers && embeddable && (
           <div
             className="btn my-20"
             onClick={() => handleReadNow(industryIdentifiers)}
@@ -80,7 +83,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           industryIdentifiers.map((iIdentifier) => {
             const { type, identifier } = iIdentifier;
             return (
-              <h4 className="text-13 uppercase">
+              <h4 className="text-13 uppercase" key={`is${identifier}`}>
                 {type}: {identifier}
               </h4>
             );
