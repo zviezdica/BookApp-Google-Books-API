@@ -57,7 +57,7 @@ function App() {
             {bigScreen && <NavBigScreen />}
           </nav>
         </header>
-        <main>
+        <main className="pt-40 xs:pt-150">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

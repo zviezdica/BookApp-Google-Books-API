@@ -106,7 +106,7 @@ const SearchBooks = ({ passBookToRead }) => {
 
   return (
     <div>
-      <section className="pt-40 xs:pt-150">
+      <section>
         <div
           className="relative pt-1/2 sm:pt-2/5 md:pt-1/3 bg-cover bg-center bg-no-repeat "
           style={{ backgroundImage: `url(${searchBackground})` }}
