@@ -4,6 +4,13 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 // import { db } from "./Firebase";
 // import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
+import { auth } from "./firebase-config";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 import "./App.css";
 import IMAGES from "./images/index";
@@ -20,6 +27,56 @@ function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
   const [isIntroActive, setIsIntroActive] = useState(true);
   const [bookToRead, setBookToRead] = useState("");
+  const [existingUser, setExistingUser] = useState("");
+  const [newUser, setNewUser] = useState("");
+
+  const [user, setUser] = useState({});
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  //authentication
+  const handleUser = (email, password, auth) => {
+    if (auth === "login") {
+      setExistingUser({ email, password });
+      login();
+    } else {
+      setNewUser({ email, password });
+      register();
+    }
+
+    console.log(existingUser, newUser);
+  };
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        newUser.email,
+        newUser.password
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        existingUser.email,
+        existingUser.password
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+  };
 
   const handleBookToRead = (bookIsbn) => {
     setBookToRead(bookIsbn);
@@ -72,7 +129,10 @@ function App() {
         </header>
         <main className="pt-40 xs:pt-150">
           <Routes>
-            <Route path="/authenticate" element={<AuthenticateSection />} />
+            <Route
+              path="/authenticate"
+              element={<AuthenticateSection getUser={handleUser} />}
+            />
             <Route path="/" element={<Home />} />
             <Route
               path="/search"

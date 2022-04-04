@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "../../images/logo/logo-blue.png";
 import AuthForm from "./AuthForm";
 
-const AuthenticateSection = () => {
+const AuthenticateSection = ({ getUser }) => {
   const [activeAuth, setActiveAuth] = useState("login");
 
   const handleActiveAuth = (auth) => {
@@ -32,7 +32,7 @@ const AuthenticateSection = () => {
             Sign up
           </div>
         </div>
-        <AuthForm auth={activeAuth} />
+        <AuthForm auth={activeAuth} getUser={getUser} />
       </div>
     </section>
   );
