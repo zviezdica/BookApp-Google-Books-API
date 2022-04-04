@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+
+// import { db } from "./Firebase";
+// import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
+
 import "./App.css";
 import IMAGES from "./images/index";
 import logoTransparent from "./images/logo/logo-books-transparent.png";
@@ -19,6 +23,14 @@ function App() {
   const handleBookToRead = (bookIsbn) => {
     setBookToRead(bookIsbn);
   };
+
+  // useEffect(() => {
+  //   const q = query(collection(db, "books"));
+  //   const unsub = onSnapshot(q, (querySnapshot) => {
+  //     console.log(querySnapshot);
+  //     console.log(q);
+  //   });
+  // }, []);
 
   useEffect(() => {
     let logoText = document.querySelector(".logo-text");

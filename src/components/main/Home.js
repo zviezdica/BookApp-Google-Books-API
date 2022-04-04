@@ -1,9 +1,5 @@
-const Home = () =>{
-    return(
-        <section>
-            ja home
-        </section>
-    )
-}
+const Home = () => {
+  return <section>ja home</section>;
+};
 
 export default Home;
