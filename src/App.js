@@ -14,6 +14,7 @@ import Home from "./components/main/Home";
 import SearchBooks from "./components/search-books/SearchBooks";
 import MyBookshelf from "./components/bookshelf/MyBookshelf";
 import ReadNowSection from "./components/read-now-section/ReadNowSection";
+import AuthenticateSection from "./components/authenticate/AuthenticateSection";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -71,6 +72,7 @@ function App() {
         </header>
         <main className="pt-40 xs:pt-150">
           <Routes>
+            <Route path="/authenticate" element={<AuthenticateSection />} />
             <Route path="/" element={<Home />} />
             <Route
               path="/search"

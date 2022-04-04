@@ -215,6 +215,7 @@ module.exports = {
       "10vw": "10vw",
       "15vw": "15vw",
       "20vw": "20vw",
+      "80vw": "80vw",
 
       "40vh": "40vh",
       "40vh": "40vh",
@@ -231,6 +232,7 @@ module.exports = {
       greyish: "#e6e6e6",
       //     "pale-opacity": "#f7f9fb99",
       white: "#ffffff",
+      "button-blue": "#1A9AC1",
       "white-opacity": "#ffffffe6",
       "peacock-blue": "#015697",
       "dark-blue": "#101220",
@@ -330,6 +332,9 @@ module.exports = {
       rotate: {
         17: "17deg",
         20: "20deg",
+      },
+      outlineWidth: {
+        1000: "1000px",
       },
     },
   },
