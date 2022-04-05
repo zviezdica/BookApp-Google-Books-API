@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from "react-router-dom";
 
 // import { db } from "./Firebase";
 // import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
@@ -22,6 +28,7 @@ import SearchBooks from "./components/search-books/SearchBooks";
 import MyBookshelf from "./components/bookshelf/MyBookshelf";
 import ReadNowSection from "./components/read-now-section/ReadNowSection";
 import AuthenticateSection from "./components/authenticate/AuthenticateSection";
+import { UserContext } from "./components/authenticate/UserContext";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -29,31 +36,19 @@ function App() {
   const [bookToRead, setBookToRead] = useState("");
   const [existingUser, setExistingUser] = useState("");
   const [newUser, setNewUser] = useState("");
-
   const [user, setUser] = useState({});
+
+  //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
-
-  //authentication
-  const handleUser = (email, password, auth) => {
-    if (auth === "login") {
-      setExistingUser({ email, password });
-      login();
-    } else {
-      setNewUser({ email, password });
-      register();
-    }
-
-    console.log(existingUser, newUser);
-  };
 
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
         auth,
-        newUser.email,
-        newUser.password
+        newUser.regEmail,
+        newUser.regPassword
       );
       console.log(user);
     } catch (error) {
@@ -77,6 +72,22 @@ function App() {
   const logout = async () => {
     await signOut(auth);
   };
+
+  //user registered
+  useEffect(() => {
+    console.log(newUser);
+    if (newUser) {
+      register();
+    }
+  }, [newUser]);
+
+  //user logged in
+  useEffect(() => {
+    console.log(existingUser);
+    if (existingUser) {
+      login();
+    }
+  }, [existingUser]);
 
   const handleBookToRead = (bookIsbn) => {
     setBookToRead(bookIsbn);
@@ -108,50 +119,55 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <div className="App relative min-h-100vh ">
-        {isIntroActive && (
-          <div className="intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-2">
-            <div
-              style={{ backgroundImage: `url(${logoTransparent})` }}
-              className="h-1/2 w-1/2 bg-center bg-cover absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            ></div>
-            <h1 className="logo-text uppercase text-35 sm:text-45 text-white transition-all duration-2000 absolute top-3/5 sm:top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 tracking-tighter opacity-0">
-              libar
-            </h1>
-          </div>
-        )}
-        <header className="w-full xs:fixed top-0 bg-white z-1">
-          <nav className="h-full w-full shadow-bottom">
-            {!bigScreen && <NavSmallScreen />}
-            {bigScreen && <NavBigScreen />}
-          </nav>
-        </header>
-        <main className="pt-40 xs:pt-150">
-          <Routes>
-            <Route
-              path="/authenticate"
-              element={
-                <AuthenticateSection
-                  getUser={handleUser}
-                  currentUser={user?.email}
-                />
-              }
-            />
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/search"
-              element={<SearchBooks passBookToRead={handleBookToRead} />}
-            />
-            <Route path="/bookshelf" element={<MyBookshelf />} />
-            <Route
-              path="/readNow"
-              element={<ReadNowSection book={bookToRead} />}
-            />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <UserContext.Provider
+      value={{ newUser, setNewUser, existingUser, setExistingUser, user }}
+    >
+      <Router>
+        <div className="App relative min-h-100vh ">
+          {isIntroActive && (
+            <div className="intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-2">
+              <div
+                style={{ backgroundImage: `url(${logoTransparent})` }}
+                className="h-1/2 w-1/2 bg-center bg-cover absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              ></div>
+              <h1 className="logo-text uppercase text-35 sm:text-45 text-white transition-all duration-2000 absolute top-3/5 sm:top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 tracking-tighter opacity-0">
+                libar
+              </h1>
+            </div>
+          )}
+          <header className="w-full xs:fixed top-0 bg-white z-1">
+            <nav className="h-full w-full shadow-bottom">
+              {!bigScreen && <NavSmallScreen />}
+              {bigScreen && <NavBigScreen />}
+            </nav>
+          </header>
+          <main className="pt-40 xs:pt-150">
+            <Routes>
+              <Route
+                path="/authenticate"
+                element={
+                  <AuthenticateSection
+                    currentUser={user?.email}
+                    exist={existingUser.email}
+                  />
+                }
+              />
+              <Route></Route>
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/search"
+                element={<SearchBooks passBookToRead={handleBookToRead} />}
+              />
+              <Route path="/bookshelf" element={<MyBookshelf />} />
+              <Route
+                path="/readNow"
+                element={<ReadNowSection book={bookToRead} />}
+              />
+            </Routes>
+          </main>
+        </div>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

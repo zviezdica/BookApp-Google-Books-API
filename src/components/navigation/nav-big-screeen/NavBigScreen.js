@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import logoBlue from "../../../images/logo/logo-blue.png";
+import { UserContext } from "../../authenticate/UserContext";
 
 const NavBigScreen = () => {
+  const { user } = useContext(UserContext);
   return (
     <section className="container flex">
       <div className="w-1/5">
@@ -32,11 +35,13 @@ const NavBigScreen = () => {
         </Link>
       </div>
       <div className="w-1/5 relative">
-        <Link to="/authenticate">
-          <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-5 md:px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white">
-            log in
-          </button>
-        </Link>
+        {!user && (
+          <Link to="/authenticate">
+            <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 py-2 px-5 md:px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white">
+              log in
+            </button>
+          </Link>
+        )}
       </div>
     </section>
   );

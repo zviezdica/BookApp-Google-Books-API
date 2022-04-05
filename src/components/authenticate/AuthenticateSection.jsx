@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import logo from "../../images/logo/logo-blue.png";
-import AuthForm from "./AuthForm";
+import { useEffect, useRef, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 
-const AuthenticateSection = ({ getUser, currentUser }) => {
+const AuthenticateSection = ({ currentUser }) => {
   const [activeAuth, setActiveAuth] = useState("login");
   const [alert, setAlert] = useState(false);
+  const [shouldNavigate, setShouldNavigate] = useState(false);
+  const navigate = useNavigate();
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);
@@ -14,8 +17,18 @@ const AuthenticateSection = ({ getUser, currentUser }) => {
     setAlert(true);
     const timer = setTimeout(() => {
       setAlert(false);
+      if (currentUser) {
+        setShouldNavigate(true);
+      }
     }, 2000);
     return () => clearTimeout(timer);
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (shouldNavigate) {
+      setShouldNavigate(false);
+      navigate("/bookshelf");
+    } else return;
   }, [currentUser]);
 
   return (
@@ -41,7 +54,8 @@ const AuthenticateSection = ({ getUser, currentUser }) => {
             Sign up
           </div>
         </div>
-        <AuthForm auth={activeAuth} getUser={getUser} />
+        {activeAuth === "signup" && <RegisterForm />}
+        {activeAuth === "login" && <LoginForm />}
       </div>
 
       <div className="w-max fixed bottom-30 left-1/2">

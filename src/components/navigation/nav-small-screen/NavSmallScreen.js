@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logoBlue from "../../../images/logo/logo-blue.png";
+import { UserContext } from "../../authenticate/UserContext";
 
 const NavSmallScreen = () => {
   const [isNavOpened, setIsNavOpened] = useState(false);
+  const { user } = useContext(UserContext);
   return (
     <section>
       <div className="container flex justify-between items-center py-10 ">
@@ -19,11 +21,13 @@ const NavSmallScreen = () => {
           </Link>
         </div>
         <div className="relative">
-          <Link to="/authenticate">
-            <button className="absolute top-1/2 left-1/2 -translate-x-3/5 -translate-y-1/2 py-2 px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white whitespace-nowrap">
-              log in
-            </button>
-          </Link>
+          {!user && (
+            <Link to="/authenticate">
+              <button className="absolute top-1/2 left-1/2 -translate-x-3/5 -translate-y-1/2 py-2 px-15 border-2 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-dark-blue hover:text-white whitespace-nowrap">
+                log in
+              </button>
+            </Link>
+          )}
         </div>
         <div
           onClick={() => setIsNavOpened(!isNavOpened)}
