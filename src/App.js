@@ -30,6 +30,7 @@ import MyBookshelf from "./components/bookshelf/MyBookshelf";
 import ReadNowSection from "./components/read-now-section/ReadNowSection";
 import AuthenticateSection from "./components/authenticate/AuthenticateSection";
 import { UserContext } from "./components/authenticate/UserContext";
+import LoginAlert from "./components/LoginAlert";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -39,6 +40,7 @@ function App() {
   const [newUser, setNewUser] = useState("");
   const [user, setUser] = useState({});
   const [isLogOutActive, setIsLogOutActive] = useState(false);
+  const [loginAlert, setLoginAlert] = useState(false);
 
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
@@ -131,6 +133,8 @@ function App() {
         logout,
         isLogOutActive,
         setIsLogOutActive,
+        loginAlert,
+        setLoginAlert,
       }}
     >
       <Router>
@@ -169,6 +173,7 @@ function App() {
           </main>
         </div>
       </Router>
+      <LoginAlert />
     </UserContext.Provider>
   );
 }

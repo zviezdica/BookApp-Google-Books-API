@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logoBlue from "../../../images/logo/logo-blue.png";
 import { UserContext } from "../../authenticate/UserContext";
+import UserIcon from "../UserIcon";
+import LogOut from "../LogOut";
 
 const NavSmallScreen = () => {
   const [isNavOpened, setIsNavOpened] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, isLogOutActive } = useContext(UserContext);
   return (
     <section>
       <div className="container flex justify-between items-center py-10 ">
@@ -27,6 +29,12 @@ const NavSmallScreen = () => {
                 log in
               </button>
             </Link>
+          )}
+          {user && (
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex ">
+              {<UserIcon />}
+              {isLogOutActive && <LogOut />}
+            </div>
           )}
         </div>
         <div

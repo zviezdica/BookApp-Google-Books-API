@@ -6,33 +6,33 @@ import { UserContext } from "./UserContext";
 
 const AuthenticateSection = () => {
   const [activeAuth, setActiveAuth] = useState("login");
-  const [alert, setAlert] = useState(false);
   const [shouldNavigate, setShouldNavigate] = useState(false);
   const navigate = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, loginAlert, setLoginAlert } = useContext(UserContext);
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);
   };
 
   useEffect(() => {
-    setAlert(true);
+    setLoginAlert(true);
     const timer = setTimeout(() => {
-      setAlert(false);
-      if (user) {
-        setShouldNavigate(true);
-      }
+      setLoginAlert(false);
     }, 1500);
+
+    if (user) {
+      navigate("/bookshelf");
+    }
     return () => clearTimeout(timer);
   }, [user]);
 
-  useEffect(() => {
-    if (shouldNavigate) {
-      setShouldNavigate(false);
-      navigate("/bookshelf");
-    } else return;
-  }, [shouldNavigate]);
+  //   useEffect(() => {
+  //     if (shouldNavigate) {
+  //       setShouldNavigate(false);
+  //       navigate("/bookshelf");
+  //     } else return;
+  //   }, [shouldNavigate]);
 
   return (
     <section>
@@ -59,19 +59,6 @@ const AuthenticateSection = () => {
         </div>
         {activeAuth === "signup" && <RegisterForm />}
         {activeAuth === "login" && <LoginForm />}
-      </div>
-
-      <div className="w-max fixed bottom-30 left-1/2">
-        {user && alert && (
-          <h4 className="relative -left-1/2 bg-alert-green px-20 rounded-sm">
-            {user.email} successfullly loged in!
-          </h4>
-        )}
-        {!user && alert && (
-          <h4 className="relative -left-1/2 bg-alert-red px-20 rounded-sm">
-            You successfullly loged out!
-          </h4>
-        )}
       </div>
     </section>
   );
