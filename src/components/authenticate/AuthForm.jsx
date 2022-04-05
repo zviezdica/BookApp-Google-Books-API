@@ -77,7 +77,7 @@ const AuthForm = ({ auth, getUser }) => {
           {auth === "login" && (
             <button
               type="submit"
-              className="py-5 px-50 my-20 border-1 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-button-blue hover:text-white"
+              className="py-5 px-20 md:px-50 my-20 border-1 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-button-blue hover:text-white"
             >
               log in
             </button>
@@ -85,7 +85,7 @@ const AuthForm = ({ auth, getUser }) => {
           {auth === "signup" && (
             <button
               type="submit"
-              className="py-5 px-50 my-20 border-1 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-button-blue hover:text-white"
+              className="py-5 px-20 md:px-50 my-20 border-1 rounded-sm border-solid border-dark-blue uppercase text-17 transition-all duration-300 hover:bg-button-blue hover:text-white"
             >
               sign up
             </button>

@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../../images/logo/logo-blue.png";
 import AuthForm from "./AuthForm";
 
-const AuthenticateSection = ({ getUser }) => {
+const AuthenticateSection = ({ getUser, currentUser }) => {
   const [activeAuth, setActiveAuth] = useState("login");
+  const [alert, setAlert] = useState(false);
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);
   };
+
+  useEffect(() => {
+    setAlert(true);
+    const timer = setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [currentUser]);
 
   return (
     <section>
@@ -33,6 +42,19 @@ const AuthenticateSection = ({ getUser }) => {
           </div>
         </div>
         <AuthForm auth={activeAuth} getUser={getUser} />
+      </div>
+
+      <div className="w-max fixed bottom-30 left-1/2">
+        {currentUser && alert && (
+          <h4 className="relative -left-1/2 bg-alert-green px-20 rounded-sm">
+            {currentUser} successfullly loged in!
+          </h4>
+        )}
+        {!currentUser && alert && (
+          <h4 className="relative -left-1/2 bg-alert-red px-20 rounded-sm">
+            You successfullly loged out!
+          </h4>
+        )}
       </div>
     </section>
   );

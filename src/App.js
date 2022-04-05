@@ -131,7 +131,12 @@ function App() {
           <Routes>
             <Route
               path="/authenticate"
-              element={<AuthenticateSection getUser={handleUser} />}
+              element={
+                <AuthenticateSection
+                  getUser={handleUser}
+                  currentUser={user?.email}
+                />
+              }
             />
             <Route path="/" element={<Home />} />
             <Route
