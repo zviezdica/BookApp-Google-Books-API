@@ -6,6 +6,7 @@ import {
   Routes,
   Link,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 
 // import { db } from "./Firebase";
@@ -37,6 +38,7 @@ function App() {
   const [existingUser, setExistingUser] = useState("");
   const [newUser, setNewUser] = useState("");
   const [user, setUser] = useState({});
+  const [isLogOutActive, setIsLogOutActive] = useState(false);
 
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
@@ -120,7 +122,16 @@ function App() {
 
   return (
     <UserContext.Provider
-      value={{ newUser, setNewUser, existingUser, setExistingUser, user }}
+      value={{
+        newUser,
+        setNewUser,
+        existingUser,
+        setExistingUser,
+        user,
+        logout,
+        isLogOutActive,
+        setIsLogOutActive,
+      }}
     >
       <Router>
         <div className="App relative min-h-100vh ">
@@ -143,16 +154,7 @@ function App() {
           </header>
           <main className="pt-40 xs:pt-150">
             <Routes>
-              <Route
-                path="/authenticate"
-                element={
-                  <AuthenticateSection
-                    currentUser={user?.email}
-                    exist={existingUser.email}
-                  />
-                }
-              />
-              <Route></Route>
+              <Route path="/authenticate" element={<AuthenticateSection />} />
               <Route path="/" element={<Home />} />
               <Route
                 path="/search"

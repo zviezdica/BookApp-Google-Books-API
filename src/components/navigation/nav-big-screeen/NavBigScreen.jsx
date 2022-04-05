@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import logoBlue from "../../../images/logo/logo-blue.png";
 import { UserContext } from "../../authenticate/UserContext";
+import UserIcon from "../UserIcon";
+import LogOut from "../LogOut";
 
 const NavBigScreen = () => {
-  const { user } = useContext(UserContext);
+  const { user, isLogOutActive } = useContext(UserContext);
+
   return (
     <section className="container flex">
       <div className="w-1/5">
@@ -41,6 +44,12 @@ const NavBigScreen = () => {
               log in
             </button>
           </Link>
+        )}
+        {user && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex ">
+            {<UserIcon />}
+            {isLogOutActive && <LogOut />}
+          </div>
         )}
       </div>
     </section>
