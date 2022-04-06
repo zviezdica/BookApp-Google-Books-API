@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import close from "../../images/icons/close.png";
+import { doc, setDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
+
+import { UserContext } from "../authenticate/UserContext";
+import { async } from "@firebase/util";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const { id, accessInfo, volumeInfo } = data;
@@ -23,6 +28,10 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
 
   const { embeddable } = accessInfo;
 
+  const { user } = useContext(UserContext);
+
+  console.log(collection(db, "books"));
+
   const handleReadNow = (industryIdentifiers) => {
     if (!industryIdentifiers) return;
     let isbn = industryIdentifiers.filter(
@@ -31,6 +40,20 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
 
     let isbnNum = isbn[0].identifier;
     selectBookToRead(isbnNum);
+  };
+
+  const handleFavorites = async () => {
+    const bookRef = doc(db, "books", user.uid, "favorites", id);
+    setDoc(bookRef, { merge: true });
+    try {
+      await setDoc(
+        bookRef,
+
+        { bookId: `${id}`, name: `${title}` }
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -69,21 +92,24 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
         {description && (
           <p className="text-14 text-justify py-20">{description}</p>
         )}
+        <div className="flex w-2/3 justify-evenly">
+          {previewLink && (
+            <a className="btn my-20" href={previewLink} target="_blank">
+              visit on google books
+            </a>
+          )}
 
-        {previewLink && (
-          <a className="btn my-20" href={previewLink} target="_blank">
-            visit on google books
-          </a>
-        )}
+          {industryIdentifiers && embeddable && (
+            <div
+              className="btn my-20"
+              onClick={() => handleReadNow(industryIdentifiers)}
+            >
+              <Link to="/readNow">read now</Link>
+            </div>
+          )}
 
-        {industryIdentifiers && embeddable && (
-          <div
-            className="btn my-20"
-            onClick={() => handleReadNow(industryIdentifiers)}
-          >
-            <Link to="/readNow">read now</Link>
-          </div>
-        )}
+          <div className="btn my-20">add to my bookshelf</div>
+        </div>
       </div>
       <div className="flex flex-wrap children:px-10 divide-x-1 divide-greyish">
         {industryIdentifiers &&

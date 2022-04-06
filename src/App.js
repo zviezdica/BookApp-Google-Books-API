@@ -11,7 +11,8 @@ import {
 
 // import { db } from "./Firebase";
 // import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
-import { auth } from "./firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "./firebase-config";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -31,6 +32,7 @@ import ReadNowSection from "./components/read-now-section/ReadNowSection";
 import AuthenticateSection from "./components/authenticate/AuthenticateSection";
 import { UserContext } from "./components/authenticate/UserContext";
 import LoginAlert from "./components/LoginAlert";
+import { async } from "@firebase/util";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -42,9 +44,19 @@ function App() {
   const [isLogOutActive, setIsLogOutActive] = useState(false);
   const [loginAlert, setLoginAlert] = useState(false);
 
+  console.log(db);
+  const getData = async () => {
+    const querySnapshot = await getDocs(collection(db, "books"));
+    querySnapshot.forEach((doc) => {
+      console.log(doc);
+    });
+  };
+  getData();
+
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
+    console.log(user);
   });
 
   const register = async () => {

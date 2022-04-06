@@ -6,10 +6,10 @@ import { UserContext } from "./UserContext";
 
 const AuthenticateSection = () => {
   const [activeAuth, setActiveAuth] = useState("login");
-  const [shouldNavigate, setShouldNavigate] = useState(false);
   const navigate = useNavigate();
 
-  const { user, loginAlert, setLoginAlert } = useContext(UserContext);
+  const { user, loginAlert, setLoginAlert, newUser, existingUser } =
+    useContext(UserContext);
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);
@@ -19,20 +19,14 @@ const AuthenticateSection = () => {
     setLoginAlert(true);
     const timer = setTimeout(() => {
       setLoginAlert(false);
+      if (user) {
+        navigate("/bookshelf");
+      }
+      console.log("ovo je alert");
     }, 1500);
 
-    if (user) {
-      navigate("/bookshelf");
-    }
     return () => clearTimeout(timer);
-  }, [user]);
-
-  //   useEffect(() => {
-  //     if (shouldNavigate) {
-  //       setShouldNavigate(false);
-  //       navigate("/bookshelf");
-  //     } else return;
-  //   }, [shouldNavigate]);
+  }, [newUser, existingUser]);
 
   return (
     <section>
