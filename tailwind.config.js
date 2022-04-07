@@ -500,7 +500,9 @@ module.exports = {
           marginLeft: "auto",
           marginRight: "auto",
         },
-
+        ".container--books-in-drawer": {
+          maxWidth: "900px",
+        },
         ".container--md": {
           maxWidth: "720px",
         },

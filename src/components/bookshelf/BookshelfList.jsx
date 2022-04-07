@@ -8,14 +8,7 @@ import { db } from "../../firebase-config";
 import { useContext } from "react";
 import { UserContext } from "../authenticate/UserContext";
 
-const BookshelfList = () => {
-  const [bookshelfBooks, setBookshelfBooks] = useState([]);
-  const [favorites, setFavorites] = useState("");
-  const [readingNow, setReadingNow] = useState("");
-  const [toRead, setToRead] = useState("");
-  const [haveRead, setHaveRead] = useState("");
-  console.log(bookshelfBooks);
-
+const BookshelfList = ({ passBooks }) => {
   const { user } = useContext(UserContext);
 
   const handleBookshelf = (bookshelf) => {
@@ -33,7 +26,7 @@ const BookshelfList = () => {
     } catch (error) {
       console.log(error.message);
     }
-    setBookshelfBooks(books);
+    passBooks(books);
   };
 
   return (
