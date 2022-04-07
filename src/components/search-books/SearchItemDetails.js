@@ -5,6 +5,7 @@ import { doc, setDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 import { UserContext } from "../authenticate/UserContext";
+import ContentBtn from "../buttons/ContentBtn";
 import { async } from "@firebase/util";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
@@ -84,19 +85,18 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
         {description && (
           <p className="text-14 text-justify py-20">{description}</p>
         )}
-        <div className="flex w-2/3 justify-evenly">
+        <div className="flex w-2/3 justify-evenly my-10">
           {previewLink && (
-            <a className="btn my-20" href={previewLink} target="_blank">
-              visit on google books
+            <a href={previewLink} target="_blank">
+              <ContentBtn text="visit on google books" />
             </a>
           )}
 
           {industryIdentifiers && embeddable && (
-            <div
-              className="btn my-20"
-              onClick={() => handleReadNow(industryIdentifiers, "readnow")}
-            >
-              <Link to="/readNow">read now</Link>
+            <div onClick={() => handleReadNow(industryIdentifiers, "readnow")}>
+              <Link to="/readNow">
+                <ContentBtn text="read now" />
+              </Link>
             </div>
           )}
           <div className="relative ">
@@ -113,12 +113,9 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
                 </h4>
               </div>
             )}
-            <button
-              onClick={() => setBookshelfFlag(!bookshelfFlag)}
-              className="btn my-20"
-            >
-              add to my bookshelf
-            </button>
+            <div onClick={() => setBookshelfFlag(!bookshelfFlag)}>
+              <ContentBtn text="add to my bookshelf" />
+            </div>
           </div>
         </div>
       </div>

@@ -234,7 +234,7 @@ module.exports = {
       white: "#ffffff",
       "alert-green": "#A9F7B9",
       "alert-red": "#F7AFA9",
-      "button-blue": "#1EA9D3",
+      "button-blue": "#0D3760",
       "white-opacity": "#ffffffe6",
       "peacock-blue": "#015697",
       "dark-blue": "#101220",
