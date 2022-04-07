@@ -56,7 +56,6 @@ function App() {
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-    console.log(user);
   });
 
   const register = async () => {
@@ -91,7 +90,6 @@ function App() {
 
   //user registered
   useEffect(() => {
-    console.log(newUser);
     if (newUser) {
       register();
     }
@@ -99,7 +97,6 @@ function App() {
 
   //user logged in
   useEffect(() => {
-    console.log(existingUser);
     if (existingUser) {
       login();
     }

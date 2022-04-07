@@ -3,7 +3,6 @@ import { UserContext } from "./authenticate/UserContext";
 
 const LoginAlert = () => {
   const { user, loginAlert } = useContext(UserContext);
-  console.log(loginAlert);
 
   return (
     <div className="w-max fixed bottom-30 left-1/2">

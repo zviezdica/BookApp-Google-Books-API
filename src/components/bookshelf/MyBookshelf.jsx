@@ -11,7 +11,6 @@ const MyBookshelf = () => {
   const [bookshelfBooks, setBookshelfBooks] = useState([]);
   const handleSelectedBookshelf = (books) => {
     setBookshelfBooks(books);
-    console.log(books);
   };
 
   return (

@@ -10,8 +10,6 @@ import { async } from "@firebase/util";
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const [bookshelfFlag, setBookshelfFlag] = useState(false);
   const { id, accessInfo, volumeInfo } = data;
-  console.log(data);
-
   const {
     authors,
     categories,
@@ -26,12 +24,8 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     subtitle,
     title,
   } = volumeInfo;
-
   const { embeddable } = accessInfo;
-
   const { user } = useContext(UserContext);
-
-  console.log(collection(db, "books"));
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
