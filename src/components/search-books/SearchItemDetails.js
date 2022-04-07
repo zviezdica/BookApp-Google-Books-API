@@ -8,6 +8,7 @@ import { UserContext } from "../authenticate/UserContext";
 import { async } from "@firebase/util";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
+  const [bookshelfFlag, setBookshelfFlag] = useState(false);
   const { id, accessInfo, volumeInfo } = data;
   console.log(data);
 
@@ -32,7 +33,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
 
   console.log(collection(db, "books"));
 
-  const handleReadNow = (industryIdentifiers) => {
+  const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
     let isbn = industryIdentifiers.filter(
       (identifier) => identifier.type === "ISBN_10"
@@ -40,17 +41,14 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
 
     let isbnNum = isbn[0].identifier;
     selectBookToRead(isbnNum);
+    handleAddToBookshelf(readNow);
   };
 
-  const handleFavorites = async () => {
-    const bookRef = doc(db, "books", user.uid, "favorites", id);
+  const handleAddToBookshelf = async (bookshelfname) => {
+    const bookRef = doc(db, "books", user.uid, bookshelfname, id);
     setDoc(bookRef, { merge: true });
     try {
-      await setDoc(
-        bookRef,
-
-        { bookId: `${id}`, name: `${title}` }
-      );
+      await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
     } catch (error) {
       console.log(error.message);
     }
@@ -102,13 +100,32 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           {industryIdentifiers && embeddable && (
             <div
               className="btn my-20"
-              onClick={() => handleReadNow(industryIdentifiers)}
+              onClick={() => handleReadNow(industryIdentifiers, "readnow")}
             >
               <Link to="/readNow">read now</Link>
             </div>
           )}
-
-          <div className="btn my-20">add to my bookshelf</div>
+          <div className="relative ">
+            {bookshelfFlag && (
+              <div className="left-1/2 -translate-x-1/2 bg-white divide-y-1 divide-greyish shadow-card p-5 text-center children:p-3 absolute -top-100 w-max">
+                <h4 onClick={() => handleAddToBookshelf("toread")}>
+                  Add to read
+                </h4>
+                <h4 onClick={() => handleAddToBookshelf("favorites")}>
+                  Add to favorites
+                </h4>
+                <h4 onClick={() => handleAddToBookshelf("haveread")}>
+                  Add to have read
+                </h4>
+              </div>
+            )}
+            <button
+              onClick={() => setBookshelfFlag(!bookshelfFlag)}
+              className="btn my-20"
+            >
+              add to my bookshelf
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap children:px-10 divide-x-1 divide-greyish">

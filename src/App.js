@@ -44,14 +44,14 @@ function App() {
   const [isLogOutActive, setIsLogOutActive] = useState(false);
   const [loginAlert, setLoginAlert] = useState(false);
 
-  console.log(db);
-  const getData = async () => {
-    const querySnapshot = await getDocs(collection(db, "books"));
-    querySnapshot.forEach((doc) => {
-      console.log(doc);
-    });
-  };
-  getData();
+  // console.log(db);
+  // const getData = async () => {
+  //   const querySnapshot = await getDocs(collection(db, "books"));
+  //   querySnapshot.forEach((doc) => {
+  //     console.log(doc);
+  //   });
+  // };
+  // getData();
 
   //authentication
   onAuthStateChanged(auth, (currentUser) => {

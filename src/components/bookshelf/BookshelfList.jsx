@@ -3,21 +3,41 @@ import favorites_ from "../../images/icons/favorites.png";
 import readingNow_ from "../../images/icons/reading-now.png";
 import toRead_ from "../../images/icons/to-read.png";
 import haveRead_ from "../../images/icons/have-read.png";
-import Favorites from "./Favorites";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../../firebase-config";
+import { useContext } from "react";
+import { UserContext } from "../authenticate/UserContext";
 
 const BookshelfList = () => {
-  const [activeBookshelf, setActiveBookshelf] = useState("favorites");
+  const [bookshelfBooks, setBookshelfBooks] = useState([]);
   const [favorites, setFavorites] = useState("");
   const [readingNow, setReadingNow] = useState("");
   const [toRead, setToRead] = useState("");
   const [haveRead, setHaveRead] = useState("");
+  console.log(bookshelfBooks);
+
+  const { user } = useContext(UserContext);
 
   const handleBookshelf = (bookshelf) => {
-    setActiveBookshelf(bookshelf);
+    handleGetFromBookshelf(bookshelf);
+  };
+
+  const handleGetFromBookshelf = async (bookshelf) => {
+    const books = [];
+    const bookRef = collection(db, "books", user.uid, bookshelf);
+    try {
+      const results = await getDocs(bookRef);
+      results.forEach((doc) => {
+        books.push(doc.data());
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+    setBookshelfBooks(books);
   };
 
   return (
-    <section>
+    <section className="pr-20">
       <div
         className="flex items-center pb-20"
         onClick={() => handleBookshelf("favorites")}
@@ -31,7 +51,7 @@ const BookshelfList = () => {
 
       <div
         className="flex items-center pb-20"
-        onClick={() => handleBookshelf("reading-now")}
+        onClick={() => handleBookshelf("readnow")}
       >
         <div
           style={{ backgroundImage: `url(${readingNow_})` }}
@@ -42,7 +62,7 @@ const BookshelfList = () => {
 
       <div
         className="flex items-center pb-20"
-        onClick={() => handleBookshelf("to-read")}
+        onClick={() => handleBookshelf("toread")}
       >
         <div
           style={{ backgroundImage: `url(${toRead_})` }}
@@ -53,7 +73,7 @@ const BookshelfList = () => {
 
       <div
         className="flex items-center pb-20"
-        onClick={() => handleBookshelf("have-read")}
+        onClick={() => handleBookshelf("haveread")}
       >
         <div
           style={{ backgroundImage: `url(${haveRead_})` }}
@@ -61,7 +81,6 @@ const BookshelfList = () => {
         ></div>
         <h4 className="px-15">Have read</h4>
       </div>
-      <Favorites />
     </section>
   );
 };
