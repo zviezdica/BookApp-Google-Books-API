@@ -40,8 +40,10 @@ const AuthenticateSection = () => {
           <div
             onClick={() => handleActiveAuth("login")}
             className={
-              "p-8 " +
-              (activeAuth === "login" ? "bg-transparent" : "bg-button-blue")
+              "p-8 rounded-sm -ml-1 " +
+              (activeAuth === "login"
+                ? "bg-transparent text-dark-blue"
+                : "bg-dark-blue text-white")
             }
           >
             Log in
@@ -49,8 +51,10 @@ const AuthenticateSection = () => {
           <div
             onClick={() => handleActiveAuth("signup")}
             className={
-              "p-8 " +
-              (activeAuth === "signup" ? "bg-transparent" : "bg-button-blue")
+              "p-8 rounded-sm ml-1 " +
+              (activeAuth === "signup"
+                ? "bg-transparent"
+                : "bg-dark-blue text-white")
             }
           >
             Sign up

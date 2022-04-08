@@ -37,7 +37,7 @@ const EmbeddedViewer = ({ book }) => {
           window.viewer = viewer;
           viewer = new window.google.books.DefaultViewer(canvasRef.current);
         });
-        //to be sure viewer is embedded
+        //to ensure to load book when viewer is embedded
         setTimeout(() => {
           loadViewer();
         }, 2000);

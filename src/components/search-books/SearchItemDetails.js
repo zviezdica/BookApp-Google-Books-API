@@ -1,12 +1,11 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import close from "../../images/icons/close.png";
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 import { UserContext } from "../authenticate/UserContext";
 import ContentBtn from "../parts/ContentBtn";
-import { async } from "@firebase/util";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const [bookshelfFlag, setBookshelfFlag] = useState(false);

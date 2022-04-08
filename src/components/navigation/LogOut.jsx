@@ -18,7 +18,7 @@ const LogOut = () => {
   };
 
   return (
-    <div className="h-150 md:h-200 w-180 md:w-200 absolute -left-1/10 md:-left-1/5 top-40 bg-white shadow-card">
+    <div className="h-150 md:h-200 w-180 md:w-200 absolute left-1/2 -translate-x-1/2 top-40 bg-white shadow-card">
       <div className="relative w-full h-full">
         <button
           onClick={handleLogout}
