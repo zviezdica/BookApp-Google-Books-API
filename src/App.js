@@ -31,7 +31,6 @@ import MyBookshelf from "./components/bookshelf/MyBookshelf";
 import ReadNowSection from "./components/read-now-section/ReadNowSection";
 import AuthenticateSection from "./components/authenticate/AuthenticateSection";
 import { UserContext } from "./components/authenticate/UserContext";
-import LoginAlert from "./components/LoginAlert";
 import { async } from "@firebase/util";
 
 function App() {
@@ -42,7 +41,8 @@ function App() {
   const [newUser, setNewUser] = useState("");
   const [user, setUser] = useState({});
   const [isLogOutActive, setIsLogOutActive] = useState(false);
-  const [loginAlert, setLoginAlert] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userLoggedOut, setUserLoggedOut] = useState(false);
 
   // console.log(db);
   // const getData = async () => {
@@ -66,6 +66,7 @@ function App() {
         newUser.regPassword
       );
       console.log(user);
+      handleLoginALert();
     } catch (error) {
       console.log(error.message);
     }
@@ -79,6 +80,7 @@ function App() {
         existingUser.password
       );
       console.log(user);
+      handleLoginALert();
     } catch (error) {
       console.log(error.message);
     }
@@ -86,6 +88,14 @@ function App() {
 
   const logout = async () => {
     await signOut(auth);
+  };
+
+  const handleLoginALert = () => {
+    setUserLoggedIn(true);
+
+    setTimeout(() => {
+      setUserLoggedIn(false);
+    }, 1500);
   };
 
   //user registered
@@ -142,8 +152,10 @@ function App() {
         logout,
         isLogOutActive,
         setIsLogOutActive,
-        loginAlert,
-        setLoginAlert,
+        userLoggedOut,
+        setUserLoggedOut,
+        userLoggedIn,
+        setUserLoggedIn,
       }}
     >
       <Router>
@@ -182,7 +194,6 @@ function App() {
           </main>
         </div>
       </Router>
-      <LoginAlert />
     </UserContext.Provider>
   );
 }

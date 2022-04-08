@@ -5,7 +5,7 @@ import { doc, setDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 import { UserContext } from "../authenticate/UserContext";
-import ContentBtn from "../buttons/ContentBtn";
+import ContentBtn from "../parts/ContentBtn";
 import { async } from "@firebase/util";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
@@ -40,6 +40,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   };
 
   const handleAddToBookshelf = async (bookshelfname) => {
+    setBookshelfFlag(false);
     const bookRef = doc(db, "books", user.uid, bookshelfname, id);
     setDoc(bookRef, { merge: true });
     try {
@@ -85,13 +86,8 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
         {description && (
           <p className="text-14 text-justify py-20">{description}</p>
         )}
-        <div className="flex w-2/3 justify-evenly my-10">
-          {previewLink && (
-            <a href={previewLink} target="_blank">
-              <ContentBtn text="visit on google books" />
-            </a>
-          )}
 
+        <div className="flex flex-col sm:flex-row sm:w-full md:w-2/3 my-10">
           {industryIdentifiers && embeddable && (
             <div onClick={() => handleReadNow(industryIdentifiers, "readnow")}>
               <Link to="/readNow">
@@ -101,14 +97,23 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           )}
           <div className="relative ">
             {bookshelfFlag && (
-              <div className="left-1/2 -translate-x-1/2 bg-white divide-y-1 divide-greyish shadow-card p-5 text-center children:p-3 absolute -top-100 w-max">
-                <h4 onClick={() => handleAddToBookshelf("toread")}>
+              <div className="bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-70 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
+                <h4
+                  onClick={() => handleAddToBookshelf("toread")}
+                  className=" hover:text-peacock-blue transition-color"
+                >
                   Add to read
                 </h4>
-                <h4 onClick={() => handleAddToBookshelf("favorites")}>
+                <h4
+                  onClick={() => handleAddToBookshelf("favorites")}
+                  className=" hover:text-peacock-blue transition-color"
+                >
                   Add to favorites
                 </h4>
-                <h4 onClick={() => handleAddToBookshelf("haveread")}>
+                <h4
+                  onClick={() => handleAddToBookshelf("haveread")}
+                  className=" hover:text-peacock-blue transition-color"
+                >
                   Add to have read
                 </h4>
               </div>
@@ -117,6 +122,11 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
               <ContentBtn text="add to my bookshelf" />
             </div>
           </div>
+          {previewLink && (
+            <a href={previewLink} target="_blank">
+              <ContentBtn text="visit on google books" />
+            </a>
+          )}
         </div>
       </div>
       <div className="flex flex-wrap children:px-10 divide-x-1 divide-greyish">

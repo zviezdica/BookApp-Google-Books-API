@@ -3,30 +3,35 @@ import { useNavigate } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { UserContext } from "./UserContext";
+import Alert from "../parts/Alert";
 
 const AuthenticateSection = () => {
   const [activeAuth, setActiveAuth] = useState("login");
   const navigate = useNavigate();
 
-  const { user, loginAlert, setLoginAlert, newUser, existingUser } =
-    useContext(UserContext);
+  const {
+    user,
+    newUser,
+    existingUser,
+    userLoggedOut,
+    userLoggedIn,
+    setUserLoggedIn,
+  } = useContext(UserContext);
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);
   };
 
   useEffect(() => {
-    setLoginAlert(true);
-    const timer = setTimeout(() => {
-      setLoginAlert(false);
-      if (user) {
+    if (user) {
+      const timer = setTimeout(() => {
         navigate("/bookshelf");
-      }
-      console.log("ovo je alert");
-    }, 1500);
+        setUserLoggedIn(false);
+      }, 1500);
 
-    return () => clearTimeout(timer);
-  }, [newUser, existingUser]);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
 
   return (
     <section>
@@ -53,6 +58,12 @@ const AuthenticateSection = () => {
         </div>
         {activeAuth === "signup" && <RegisterForm />}
         {activeAuth === "login" && <LoginForm />}
+        {userLoggedOut && (
+          <Alert danger={true} text="You successfully logged out" />
+        )}
+        {userLoggedIn && (
+          <Alert success={true} text="You successfully logged in" />
+        )}
       </div>
     </section>
   );

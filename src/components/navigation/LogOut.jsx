@@ -3,12 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../authenticate/UserContext";
 
 const LogOut = () => {
-  const { logout } = useContext(UserContext);
+  const { logout, setUserLoggedOut, setIsLogOutActive } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     navigate("/authenticate");
+    setUserLoggedOut(true);
+    setIsLogOutActive(false);
+    setTimeout(() => {
+      setUserLoggedOut(false);
+    }, 1500);
   };
 
   return (

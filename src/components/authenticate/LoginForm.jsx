@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "./UserContext";
+import Alert from "../parts/Alert";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
