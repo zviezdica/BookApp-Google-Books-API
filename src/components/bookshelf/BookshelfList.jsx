@@ -11,17 +11,19 @@ import { UserContext } from "../authenticate/UserContext";
 const BookshelfList = ({ passBooks }) => {
   const { user } = useContext(UserContext);
 
-  const handleBookshelf = (bookshelf) => {
-    handleGetFromBookshelf(bookshelf);
-  };
+  // const handleBookshelf = (bookshelf) => {
+  //   handleGetFromBookshelf(bookshelf);
+  // };
 
-  const handleGetFromBookshelf = async (bookshelf) => {
+  const handleBookshelf = async (bookshelf) => {
     const books = [];
     const bookRef = collection(db, "books", user.uid, bookshelf);
     try {
       const results = await getDocs(bookRef);
       results.forEach((doc) => {
-        books.push(doc.data());
+        if (doc.data()) {
+          books.push(doc.data());
+        } else return;
       });
     } catch (error) {
       console.log(error.message);
