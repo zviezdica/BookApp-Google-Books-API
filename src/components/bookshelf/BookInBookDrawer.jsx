@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const BookInBookDrawer = ({ book }) => {
   const { id, volumeInfo } = book.data;
   const { imageLinks, title } = volumeInfo;

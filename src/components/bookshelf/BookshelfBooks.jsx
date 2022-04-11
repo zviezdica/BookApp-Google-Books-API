@@ -1,43 +1,46 @@
 import { useState, useEffect } from "react";
 import BookInBookDrawer from "./BookInBookDrawer";
+import Loader from "../parts/Loader";
 
 const axios = require("axios");
 
 const BookshelfBooks = ({ books }) => {
   const [booksData, setBooksData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState("");
 
   useEffect(() => {
     let booksArr = [];
     let apiRoot = "https://www.googleapis.com/books/v1/volumes/";
     if (books.length > 0) {
       setLoading(true);
-      console.log(books);
       books.forEach((book) => {
         axios
           .get(apiRoot + book.bookId)
           .then((response) => {
             booksArr = [...booksArr, response];
             setBooksData(booksArr);
-            console.log(booksArr);
             setLoading(false);
           })
           .catch((error) => console.log(error));
       });
-    } else setBooksData(undefined);
-    console.log(booksData);
-    console.log(typeof booksData);
+    } else {
+      setBooksData("");
+    }
   }, [books]);
+
+  // useEffect(() => {
+  //   console.log(loading);
+  // });
 
   return (
     <section className="xs:pl-20 container container--books-in-drawer flex flex-wrap">
       {booksData &&
         !loading &&
         booksData.map((book) => {
-          // console.log(book);
           return <BookInBookDrawer book={book} key={`bsh${book.data.id}`} />;
         })}
-      {booksData && loading && <Loader />}
+      {loading && <Loader />}
+      {!booksData && !loading && <h1>no books</h1>}
     </section>
   );
 };
