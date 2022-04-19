@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "../parts/Loader";
+//to make viewer reachable out of functions
+let viewer = undefined;
 
-const EmbeddedViewer = ({ bookIsbn }) => {
+const EmbeddedViewer = ({ bookIsbn, pageNum }) => {
   const canvasRef = useRef();
   const [loaded, setLoaded] = useState(false);
-  console.log(loaded);
-  let viewer = undefined;
 
   const alertNotFound = () => {
     alert("could not embed the book!");
@@ -46,10 +46,11 @@ const EmbeddedViewer = ({ bookIsbn }) => {
     }
   }, [loaded]);
 
-  const handlePageNum = () => {
-    viewer.goToPage(8);
-    console.log(viewer);
-  };
+  useEffect(() => {
+    if (loaded && viewer) {
+      viewer.goToPage(pageNum);
+    }
+  }, [pageNum]);
 
   return (
     <div>

@@ -69,7 +69,6 @@ function App() {
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-    console.log(user);
   });
 
   const register = async () => {

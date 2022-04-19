@@ -7,7 +7,6 @@ import LogOut from "../LogOut";
 
 const NavBigScreen = () => {
   const { user, isLogOutActive } = useContext(UserContext);
-  console.log(isLogOutActive);
 
   return (
     <section className="container flex">

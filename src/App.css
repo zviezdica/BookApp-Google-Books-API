@@ -134,4 +134,13 @@
             transform: rotate(360deg);
   }
 }
+
+#ranger::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: #000;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
 /*# sourceMappingURL=App.css.map */
