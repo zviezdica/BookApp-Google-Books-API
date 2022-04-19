@@ -7,12 +7,27 @@ import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { useContext } from "react";
 import { UserContext } from "../authenticate/UserContext";
+import axios from "axios";
+import { async } from "@firebase/util";
 
 const BookshelfList = ({ passBooks }) => {
-  const { user } = useContext(UserContext);
+  const { user, accessToken } = useContext(UserContext);
 
-  // const handleBookshelf = (bookshelf) => {
-  //   handleGetFromBookshelf(bookshelf);
+  // const proba = () => {
+  //   console.log(typeof accessToken);
+  //   axios
+  //     .get(
+  //       "https://www.googleapis.com/books/v1/mylibrary/bookshelves/6/volumes?key=",
+  //       {
+  //         headers: {
+  //           Authorization: accessToken,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => console.log(error));
   // };
 
   const handleBookshelf = async (bookshelf) => {

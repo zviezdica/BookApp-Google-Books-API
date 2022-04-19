@@ -4,6 +4,8 @@ import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { UserContext } from "./UserContext";
 import Alert from "../parts/Alert";
+// import LoginGoogle from "./google/LoginGoogle";
+// import LogoutGoogle from "./google/LogoutGoogle";
 
 const AuthenticateSection = () => {
   const [activeAuth, setActiveAuth] = useState("login");
@@ -24,6 +26,7 @@ const AuthenticateSection = () => {
 
   useEffect(() => {
     if (user) {
+      console.log(user);
       const timer = setTimeout(() => {
         navigate("/bookshelf");
         setUserLoggedIn(false);
@@ -62,6 +65,8 @@ const AuthenticateSection = () => {
         </div>
         {activeAuth === "signup" && <RegisterForm />}
         {activeAuth === "login" && <LoginForm />}
+        {/* <LoginGoogle />
+        <LogoutGoogle /> */}
         {userLoggedOut && (
           <Alert danger={true} text="You successfully logged out" />
         )}

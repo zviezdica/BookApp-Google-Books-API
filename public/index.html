@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <meta name="google-signin-client_id" content="526686431867-umvitfho0m8ggufvv14ha49h4uo5ta79.apps.googleusercontent.com">
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -13,7 +14,24 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- <script>
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+      }
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id: "526686431867-umvitfho0m8ggufvv14ha49h4uo5ta79.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("buttonDiv"),
+          { theme: "outline", size: "large" }  // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      }
+    </script> -->
+    <div id="buttonDiv"></div>
       </body>
       <!-- <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Royyan Wijaya -
         Flaticon</a> -->

@@ -43,6 +43,8 @@ function App() {
   const [isLogOutActive, setIsLogOutActive] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userLoggedOut, setUserLoggedOut] = useState(false);
+  const [pLLoaded, setPLLoaded] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
 
   // console.log(db);
   // const getData = async () => {
@@ -53,9 +55,21 @@ function App() {
   // };
   // getData();
 
+  //add google platform library
+  // useEffect(() => {
+  //   const scriptTag = document.createElement("script");
+  //   scriptTag.src = "https://apis.google.com/js/platform.js";
+  //   scriptTag.addEventListener("load", () => setPLLoaded(true));
+  //   scriptTag.id = "google-platform-library";
+  //   scriptTag.setAttribute("defer", "defer");
+  //   scriptTag.setAttribute("async", "async");
+  //   document.body.appendChild(scriptTag);
+  // }, []);
+
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
+    console.log(user);
   });
 
   const register = async () => {
@@ -156,6 +170,8 @@ function App() {
         setUserLoggedOut,
         userLoggedIn,
         setUserLoggedIn,
+        accessToken,
+        setAccessToken,
       }}
     >
       <Router>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Loader from "../parts/Loader";
 
 const EmbeddedViewer = ({ book }) => {
   const canvasRef = useRef();
@@ -46,13 +47,23 @@ const EmbeddedViewer = ({ book }) => {
   }, [loaded]);
 
   return (
-    <>
+    <div className="container">
       {loaded ? (
-        <div id="viewerCanvas" className="w-9/10 h-80vh " ref={canvasRef}></div>
+        <div>
+          <div className="h-20 border-red border-solid border-1"></div>
+          <div
+            id="viewerCanvas"
+            className="w-90vw h-135vw xs:w-80vw xs:h-80vh sm:w-575 mx-auto"
+            ref={canvasRef}
+          ></div>
+        </div>
       ) : (
-        <div>Script not loaded</div>
+        // <div>Script not loaded</div>
+        <div className="w-1/2 m-auto">
+          <Loader />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 
