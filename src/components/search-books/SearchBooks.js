@@ -60,8 +60,8 @@ const SearchBooks = ({ passBookToRead }) => {
   };
 
   //selected book to read
-  const selectBookToRead = (isbNum) => {
-    passBookToRead(isbNum);
+  const selectBookToRead = (book) => {
+    passBookToRead(book);
     setShowDetails(false);
   };
 

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "../parts/Loader";
 
-const EmbeddedViewer = ({ book }) => {
+const EmbeddedViewer = ({ bookIsbn }) => {
   const canvasRef = useRef();
   const [loaded, setLoaded] = useState(false);
   console.log(loaded);
+  let viewer = undefined;
 
   const alertNotFound = () => {
     alert("could not embed the book!");
@@ -22,8 +23,8 @@ const EmbeddedViewer = ({ book }) => {
   //when script is loaded
   useEffect(() => {
     const loadViewer = () => {
-      let viewer = new window.google.books.DefaultViewer(canvasRef.current);
-      viewer.load(`ISBN:${book}`, alertNotFound);
+      viewer = new window.google.books.DefaultViewer(canvasRef.current);
+      viewer.load(`ISBN:${bookIsbn}`, alertNotFound);
     };
     if (!loaded) return;
     else {
@@ -34,7 +35,6 @@ const EmbeddedViewer = ({ book }) => {
       } else {
         window.google.books.load();
         window.google.books.setOnLoadCallback(() => {
-          let viewer;
           window.viewer = viewer;
           viewer = new window.google.books.DefaultViewer(canvasRef.current);
         });
@@ -46,11 +46,18 @@ const EmbeddedViewer = ({ book }) => {
     }
   }, [loaded]);
 
+  const handlePageNum = () => {
+    viewer.goToPage(8);
+    console.log(viewer);
+  };
+
   return (
-    <div className="container">
+    <div>
       {loaded ? (
         <div>
-          <div className="h-20 border-red border-solid border-1"></div>
+          {/* <div className="h-20 border-red border-solid border-1">
+            <div className="h-20 w-20 bg-red" onClick={handlePageNum}></div>
+          </div> */}
           <div
             id="viewerCanvas"
             className="w-90vw h-135vw xs:w-80vw xs:h-80vh sm:w-575 mx-auto"

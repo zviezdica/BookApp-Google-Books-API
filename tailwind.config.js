@@ -249,6 +249,7 @@ module.exports = {
       "transparent-blue": "#001a664d",
       blueish: "#e3e6fa",
       dark: "#141f2c",
+      "light-dark": "#484848",
       "battleship-grey": "#6d7784",
       "lighter-grey": "#b3b3b3",
       "darker-grey": "#595959",

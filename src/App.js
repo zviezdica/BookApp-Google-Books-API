@@ -126,8 +126,8 @@ function App() {
     }
   }, [existingUser]);
 
-  const handleBookToRead = (bookIsbn) => {
-    setBookToRead(bookIsbn);
+  const handleBookToRead = (book) => {
+    setBookToRead(book);
   };
 
   // useEffect(() => {

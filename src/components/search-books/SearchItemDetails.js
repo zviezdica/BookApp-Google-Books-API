@@ -9,6 +9,7 @@ import ContentBtn from "../parts/ContentBtn";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const [bookshelfFlag, setBookshelfFlag] = useState(false);
+  console.log(data);
   const { id, accessInfo, volumeInfo } = data;
   const {
     authors,
@@ -24,7 +25,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     subtitle,
     title,
   } = volumeInfo;
-  const { embeddable } = accessInfo;
+  const { embeddable, viewability } = accessInfo;
   const { user } = useContext(UserContext);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
@@ -34,7 +35,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     );
 
     let isbnNum = isbn[0].identifier;
-    selectBookToRead(isbnNum);
+    selectBookToRead({ bookIsbn: isbnNum, pagesNum: pageCount, viewability });
     handleAddToBookshelf(readNow);
   };
 
