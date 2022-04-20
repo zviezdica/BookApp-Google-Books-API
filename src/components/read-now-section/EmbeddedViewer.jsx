@@ -3,7 +3,7 @@ import Loader from "../parts/Loader";
 //to make viewer reachable out of functions
 let viewer = undefined;
 
-const EmbeddedViewer = ({ bookIsbn, pageNum }) => {
+const EmbeddedViewer = ({ bookIsbn, pageNum, passLoadedInfo }) => {
   const canvasRef = useRef();
   const [loaded, setLoaded] = useState(false);
 
@@ -31,6 +31,7 @@ const EmbeddedViewer = ({ bookIsbn, pageNum }) => {
       //if viewer is already embedded
       if (window.viewer) {
         loadViewer();
+
         //if not
       } else {
         window.google.books.load();
@@ -44,6 +45,7 @@ const EmbeddedViewer = ({ bookIsbn, pageNum }) => {
         }, 2000);
       }
     }
+    passLoadedInfo(loaded);
   }, [loaded]);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const EmbeddedViewer = ({ bookIsbn, pageNum }) => {
   }, [pageNum]);
 
   return (
-    <div>
+    <div className="-mt-10">
       {loaded ? (
         <div>
           {/* <div className="h-20 border-red border-solid border-1">

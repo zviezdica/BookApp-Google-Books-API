@@ -13,6 +13,8 @@ import {
 // import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebase-config";
+import { doc, setDoc } from "firebase/firestore";
+
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -45,6 +47,7 @@ function App() {
   const [userLoggedOut, setUserLoggedOut] = useState(false);
   const [pLLoaded, setPLLoaded] = useState(false);
   const [accessToken, setAccessToken] = useState("");
+  const [bookshelfFlag, setBookshelfFlag] = useState(false);
 
   // console.log(db);
   // const getData = async () => {
@@ -137,6 +140,18 @@ function App() {
   //   });
   // }, []);
 
+  const handleAddToBookshelf = async (bookshelfname, id, title) => {
+    setBookshelfFlag(false);
+    const bookRef = doc(db, "books", user.uid, bookshelfname, id);
+    setDoc(bookRef, { merge: true });
+    try {
+      await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  //intro animation
   useEffect(() => {
     let logoText = document.querySelector(".logo-text");
     if (logoText) {
@@ -171,10 +186,13 @@ function App() {
         setUserLoggedIn,
         accessToken,
         setAccessToken,
+        handleAddToBookshelf,
+        bookshelfFlag,
+        setBookshelfFlag,
       }}
     >
       <Router>
-        <div className="App relative min-h-100vh ">
+        <div className="App relative min-h-100vh">
           {isIntroActive && (
             <div className="intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-2">
               <div

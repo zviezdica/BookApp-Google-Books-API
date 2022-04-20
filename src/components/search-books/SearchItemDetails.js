@@ -8,7 +8,6 @@ import { UserContext } from "../authenticate/UserContext";
 import ContentBtn from "../parts/ContentBtn";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
-  const [bookshelfFlag, setBookshelfFlag] = useState(false);
   console.log(data);
   const { id, accessInfo, volumeInfo } = data;
   const {
@@ -26,7 +25,8 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     title,
   } = volumeInfo;
   const { embeddable, viewability } = accessInfo;
-  const { user } = useContext(UserContext);
+  const { user, handleAddToBookshelf, bookshelfFlag, setBookshelfFlag } =
+    useContext(UserContext);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
@@ -35,20 +35,26 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     );
 
     let isbnNum = isbn[0].identifier;
-    selectBookToRead({ bookIsbn: isbnNum, pagesNum: pageCount, viewability });
-    handleAddToBookshelf(readNow);
+    selectBookToRead({
+      bookIsbn: isbnNum,
+      pagesNum: pageCount,
+      viewability,
+      id,
+      title,
+    });
+    handleAddToBookshelf(readNow, id, title);
   };
 
-  const handleAddToBookshelf = async (bookshelfname) => {
-    setBookshelfFlag(false);
-    const bookRef = doc(db, "books", user.uid, bookshelfname, id);
-    setDoc(bookRef, { merge: true });
-    try {
-      await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // const handleAddToBookshelf = async (bookshelfname) => {
+  //   setBookshelfFlag(false);
+  //   const bookRef = doc(db, "books", user.uid, bookshelfname, id);
+  //   setDoc(bookRef, { merge: true });
+  //   try {
+  //     await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
   return (
     <div className="details-card shadow-card flex flex-col container max-h-70vh bg-white fixed overflow-y-auto top-100 xs:top-130 lg:top-180 left-1/2 -translate-x-1/2 p-10">
@@ -99,19 +105,19 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
             {bookshelfFlag && (
               <div className="bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-70 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
                 <h4
-                  onClick={() => handleAddToBookshelf("toread")}
+                  onClick={() => handleAddToBookshelf("toread", id, title)}
                   className=" hover:text-peacock-blue transition-color"
                 >
                   Add to read
                 </h4>
                 <h4
-                  onClick={() => handleAddToBookshelf("favorites")}
+                  onClick={() => handleAddToBookshelf("favorites", id, title)}
                   className=" hover:text-peacock-blue transition-color"
                 >
                   Add to favorites
                 </h4>
                 <h4
-                  onClick={() => handleAddToBookshelf("haveread")}
+                  onClick={() => handleAddToBookshelf("haveread", id, title)}
                   className=" hover:text-peacock-blue transition-color"
                 >
                   Add to have read
