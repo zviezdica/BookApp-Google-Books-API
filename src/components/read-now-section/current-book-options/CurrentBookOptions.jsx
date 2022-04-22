@@ -4,10 +4,10 @@ import { UserContext } from "../../authenticate/UserContext";
 import infoIcon from "../../../images/icons/info.png";
 import favorites_ from "../../../images/icons/favorites.png";
 import haveRead_ from "../../../images/icons/have-read.png";
+import BookOption from "../../parts/BookOption";
 
 const CurrentBookOptions = ({ book, passPageNum }) => {
   const [rangeValue, setRangeValue] = useState(1);
-  const { handleAddToBookshelf } = useContext(UserContext);
 
   const handleRangeValue = (e) => {
     setRangeValue(e.target.value);
@@ -36,26 +36,8 @@ const CurrentBookOptions = ({ book, passPageNum }) => {
         />
         <h3 className="pl-15">Page: {rangeValue}</h3>
       </div>
-      <div
-        className="flex items-center pb-20"
-        onClick={() => handleAddToBookshelf("favorites", book.id, book.title)}
-      >
-        <div
-          style={{ backgroundImage: `url(${favorites_})` }}
-          className="h-15 w-15 bg-cover bg-center"
-        ></div>
-        <h4 className="px-15">Add to favorites</h4>
-      </div>
-      <div
-        className="flex items-center pb-20"
-        onClick={() => handleAddToBookshelf("haveread", book.id, book.title)}
-      >
-        <div
-          style={{ backgroundImage: `url(${haveRead_})` }}
-          className="h-15 w-15 bg-cover bg-center"
-        ></div>
-        <h4 className="px-15">Mark as have read</h4>
-      </div>
+      <BookOption type='favorites' book={book} url={favorites_} text='Add to favorites'/>
+      <BookOption type='haveread' book={book} url={haveRead_} text='Mark as have read'/>
     </section>
   );
 };

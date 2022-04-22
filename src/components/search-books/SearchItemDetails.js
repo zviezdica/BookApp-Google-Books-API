@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import close from "../../images/icons/close.png";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
+import favorites_ from '../../images/icons/favorites.png';
+import toRead_ from '../../images/icons/to-read.png';
+import readingNow from '../../images/icons/reading-now.png';
+import haveRead_ from '../../images/icons/have-read.png'
+  
 
 import { UserContext } from "../authenticate/UserContext";
 import ContentBtn from "../parts/ContentBtn";
+import BookOption from "../parts/BookOption";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   console.log(data);
@@ -44,17 +50,6 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     });
     handleAddToBookshelf(readNow, id, title);
   };
-
-  // const handleAddToBookshelf = async (bookshelfname) => {
-  //   setBookshelfFlag(false);
-  //   const bookRef = doc(db, "books", user.uid, bookshelfname, id);
-  //   setDoc(bookRef, { merge: true });
-  //   try {
-  //     await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
 
   return (
     <div className="details-card shadow-card flex flex-col container max-h-70vh bg-white fixed overflow-y-auto top-100 xs:top-130 lg:top-180 left-1/2 -translate-x-1/2 p-10">
@@ -103,25 +98,11 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           )}
           <div className="relative ">
             {bookshelfFlag && (
-              <div className="bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-70 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
-                <h4
-                  onClick={() => handleAddToBookshelf("toread", id, title)}
-                  className=" hover:text-peacock-blue transition-color"
-                >
-                  Add to read
-                </h4>
-                <h4
-                  onClick={() => handleAddToBookshelf("favorites", id, title)}
-                  className=" hover:text-peacock-blue transition-color"
-                >
-                  Add to favorites
-                </h4>
-                <h4
-                  onClick={() => handleAddToBookshelf("haveread", id, title)}
-                  className=" hover:text-peacock-blue transition-color"
-                >
-                  Add to have read
-                </h4>
+              <div className="flex flex-col justify-center items-center bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-90 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
+                <BookOption type='toread' book={{id,title}} url={toRead_} text='Add to read'/>
+                <BookOption type='favorites' book={{id,title}} url={favorites_} text='Add to favorites'/>
+                <BookOption type='haveread' book={{id,title}} url={haveRead_} text='Add to have read'/>
+                
               </div>
             )}
             <div onClick={() => setBookshelfFlag(!bookshelfFlag)}>
