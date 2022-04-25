@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import {
   BrowserRouter as Router,
@@ -9,9 +9,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-// import { db } from "./Firebase";
-// import { doc, onSnapshot, collection, query, where } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -33,7 +30,6 @@ import MyBookshelf from "./components/bookshelf/MyBookshelf";
 import ReadNowSection from "./components/read-now-section/ReadNowSection";
 import AuthenticateSection from "./components/authenticate/AuthenticateSection";
 import { UserContext } from "./components/authenticate/UserContext";
-import { async } from "@firebase/util";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -206,8 +202,7 @@ function App() {
           )}
           <header className="w-full xs:fixed top-0 bg-white z-1">
             <nav className="h-full w-full shadow-bottom">
-              {!bigScreen && <NavSmallScreen />}
-              {bigScreen && <NavBigScreen />}
+              {bigScreen ? <NavBigScreen /> : <NavSmallScreen />}
             </nav>
           </header>
           <main className="pt-40 xs:pt-150">
