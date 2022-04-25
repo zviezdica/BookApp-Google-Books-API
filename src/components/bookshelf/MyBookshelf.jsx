@@ -1,11 +1,5 @@
-import { UserContext } from "../authenticate/UserContext";
-import { useContext, useState } from "react";
-import { db } from "../../firebase-config";
-
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-
-import BookshelfList from "./BookshelfList";
-import BookshelfBooks from "./BookshelfBooks";
+import { useState } from "react";
+import { BookshelfList, BookshelfBooks } from ".";
 
 const MyBookshelf = () => {
   const [bookshelfBooks, setBookshelfBooks] = useState([]);

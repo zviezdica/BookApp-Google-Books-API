@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { useContext } from "react";
-import { UserContext } from "../../authenticate/UserContext";
-import infoIcon from "../../../images/icons/info.png";
-import favorites_ from "../../../images/icons/favorites.png";
-import haveRead_ from "../../../images/icons/have-read.png";
-import BookOption from "../../parts/BookOption";
+import { info, favorites, haveRead } from "../../../images/icons";
+import { BookOption } from "../../parts";
 
 const CurrentBookOptions = ({ book, passPageNum }) => {
   const [rangeValue, setRangeValue] = useState(1);
@@ -18,7 +14,7 @@ const CurrentBookOptions = ({ book, passPageNum }) => {
       {book.viewability == "PARTIAL" && (
         <div className="flex items-center">
           <div
-            style={{ backgroundImage: `url(${infoIcon})` }}
+            style={{ backgroundImage: `url(${info})` }}
             className="h-30 w-30 bg-center bg-cover"
           ></div>
           <h3 className="text-light-dark pl-5">Only partial viewability</h3>
@@ -39,13 +35,13 @@ const CurrentBookOptions = ({ book, passPageNum }) => {
       <BookOption
         type="favorites"
         book={book}
-        url={favorites_}
+        url={favorites}
         text="Add to favorites"
       />
       <BookOption
         type="haveread"
         book={book}
-        url={haveRead_}
+        url={haveRead}
         text="Mark as have read"
       />
     </section>

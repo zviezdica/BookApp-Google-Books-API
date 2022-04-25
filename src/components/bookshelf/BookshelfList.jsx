@@ -1,14 +1,8 @@
-import { useState } from "react";
-import favorites_ from "../../images/icons/favorites.png";
-import readingNow_ from "../../images/icons/reading-now.png";
-import toRead_ from "../../images/icons/to-read.png";
-import haveRead_ from "../../images/icons/have-read.png";
+import { favorites, readingNow, toRead, haveRead } from "../../images/icons";
 import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { useContext } from "react";
 import { UserContext } from "../authenticate/UserContext";
-import axios from "axios";
-import { async } from "@firebase/util";
 
 const BookshelfList = ({ passBooks }) => {
   const { user, accessToken } = useContext(UserContext);
@@ -53,7 +47,7 @@ const BookshelfList = ({ passBooks }) => {
         onClick={() => handleBookshelf("favorites")}
       >
         <div
-          style={{ backgroundImage: `url(${favorites_})` }}
+          style={{ backgroundImage: `url(${favorites})` }}
           className="h-25 w-25 bg-cover bg-center"
         ></div>
         <h4 className="px-15">Favorites</h4>
@@ -64,7 +58,7 @@ const BookshelfList = ({ passBooks }) => {
         onClick={() => handleBookshelf("readnow")}
       >
         <div
-          style={{ backgroundImage: `url(${readingNow_})` }}
+          style={{ backgroundImage: `url(${readingNow})` }}
           className="h-25 w-25 bg-cover bg-center"
         ></div>
         <h4 className="px-15">Reading now</h4>
@@ -75,7 +69,7 @@ const BookshelfList = ({ passBooks }) => {
         onClick={() => handleBookshelf("toread")}
       >
         <div
-          style={{ backgroundImage: `url(${toRead_})` }}
+          style={{ backgroundImage: `url(${toRead})` }}
           className="h-25 w-25 bg-cover bg-center"
         ></div>
         <h4 className="px-15">To read</h4>
@@ -86,7 +80,7 @@ const BookshelfList = ({ passBooks }) => {
         onClick={() => handleBookshelf("haveread")}
       >
         <div
-          style={{ backgroundImage: `url(${haveRead_})` }}
+          style={{ backgroundImage: `url(${haveRead})` }}
           className="h-25 w-25 bg-cover bg-center"
         ></div>
         <h4 className="px-15">Have read</h4>

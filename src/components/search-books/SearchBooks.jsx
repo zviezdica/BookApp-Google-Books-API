@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import searchBackground from "../../images/backgrounds/bookshelf.jpg";
-import SearchIcon from "../../images/icons/search.png";
-import NoResults from "../../images/icons/no-results.png";
-import ResultItem from "./ResultItem";
-import SearchItemDetails from "./SearchItemDetails";
+import { search, noResults } from "../../images/icons";
+import { ResultItem, SearchItemDetails } from ".";
 
 const axios = require("axios");
 
@@ -121,7 +119,7 @@ const SearchBooks = ({ passBookToRead }) => {
             <div className="p-2 md:p-3 bg-white container rounded-full w-9/10 xs:w-7/10 relative">
               <input
                 className="w-full pl-50 rounded-full text-17 md:text-21 bg-contain bg-no-repeat bg-to-left"
-                style={{ backgroundImage: `url(${SearchIcon})` }}
+                style={{ backgroundImage: `url(${search})` }}
                 type="text"
                 name="searchBook"
                 id="searchBook"
@@ -157,7 +155,7 @@ const SearchBooks = ({ passBookToRead }) => {
             {!searchResult && (
               <div className="flex justify-center items-center my-30">
                 <div
-                  style={{ backgroundImage: `url(${NoResults})` }}
+                  style={{ backgroundImage: `url(${noResults})` }}
                   className="bg-contain bg-no-repeat bg-center h-50 w-50 mr-10"
                 ></div>
                 <h3 className="text-17">

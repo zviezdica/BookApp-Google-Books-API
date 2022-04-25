@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
-import logoBlue from "../../../images/logo/logo-blue.png";
+import { useContext } from "react";
+import { logoBlue } from "../../../images/logo";
 import { UserContext } from "../../authenticate/UserContext";
-import UserIcon from "../UserIcon";
-import LogOut from "../LogOut";
+import { UserIcon } from "..";
 
 const NavBigScreen = () => {
   const { user, isLogOutActive } = useContext(UserContext);

@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
+import { RegisterForm, LoginForm } from ".";
 import { UserContext } from "./UserContext";
-import Alert from "../parts/Alert";
+import { Alert } from "../parts";
 // import LoginGoogle from "./google/LoginGoogle";
 // import LogoutGoogle from "./google/LogoutGoogle";
 
@@ -11,14 +10,8 @@ const AuthenticateSection = () => {
   const [activeAuth, setActiveAuth] = useState("login");
   const navigate = useNavigate();
 
-  const {
-    user,
-    newUser,
-    existingUser,
-    userLoggedOut,
-    userLoggedIn,
-    setUserLoggedIn,
-  } = useContext(UserContext);
+  const { user, userLoggedOut, userLoggedIn, setUserLoggedIn } =
+    useContext(UserContext);
 
   const handleActiveAuth = (auth) => {
     setActiveAuth(auth);

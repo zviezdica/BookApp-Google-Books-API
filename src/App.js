@@ -20,15 +20,13 @@ import {
 } from "firebase/auth";
 
 import "./App.css";
-import IMAGES from "./images/index";
-import logoTransparent from "./images/logo/logo-books-transparent.png";
-import NavBigScreen from "./components/navigation/nav-big-screeen/NavBigScreen";
-import NavSmallScreen from "./components/navigation/nav-small-screen/NavSmallScreen";
-import Home from "./components/main/Home";
-import SearchBooks from "./components/search-books/SearchBooks";
-import MyBookshelf from "./components/bookshelf/MyBookshelf";
-import ReadNowSection from "./components/read-now-section/ReadNowSection";
-import AuthenticateSection from "./components/authenticate/AuthenticateSection";
+import { logoTransparent } from "./images/logo";
+import { NavBigScreen, NavSmallScreen } from "./components/navigation";
+import { Home } from "./components/main";
+import { SearchBooks } from "./components/search-books";
+import { MyBookshelf } from "./components/bookshelf";
+import { ReadNowSection } from "./components/read-now-section";
+import { AuthenticateSection } from "./components/authenticate";
 import { UserContext } from "./components/authenticate/UserContext";
 
 function App() {

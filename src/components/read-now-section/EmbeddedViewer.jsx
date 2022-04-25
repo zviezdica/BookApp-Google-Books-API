@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Loader from "../parts/Loader";
+import { Loader } from "../parts";
 //to make viewer reachable out of functions
 let viewer = undefined;
 

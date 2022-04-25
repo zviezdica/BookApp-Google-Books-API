@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import userIcon from "../../images/icons/user.png";
+import { userIcon } from "../../images/icons";
 import { UserContext } from "../authenticate/UserContext";
-import LogOut from "./LogOut";
+import { LogOut } from ".";
 
 const UserIcon = () => {
   const { user, isLogOutActive, setIsLogOutActive } = useContext(UserContext);

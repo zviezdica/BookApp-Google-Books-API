@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import BookInBookDrawer from "./BookInBookDrawer";
-import Loader from "../parts/Loader";
+import { BookInBookDrawer } from ".";
+import { Loader } from "../parts";
 
 const axios = require("axios");
 
