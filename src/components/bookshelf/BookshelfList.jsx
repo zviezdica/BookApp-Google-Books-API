@@ -1,6 +1,7 @@
 import { favorites, readingNow, toRead, haveRead } from "../../images/icons";
 import { useContext } from "react";
 import { UserContext } from "../authenticate/UserContext";
+import {BookOptionsFilter} from "../parts"
 
 const BookshelfList = ({ passBooks }) => {
   const { user, accessToken } = useContext(UserContext);

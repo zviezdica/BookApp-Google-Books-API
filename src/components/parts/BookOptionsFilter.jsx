@@ -9,7 +9,7 @@ const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
     const { user } = useContext(UserContext);
 
     const handleBookshelf = async (bookshelf) => {
-        const books = [];
+        let books = [];
         const bookRef = collection(db, "books", user.uid, bookshelf);
         try {
           const results = await getDocs(bookRef);
@@ -32,7 +32,7 @@ const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
 
     return(
         <div
-        className="flex items-center pb-20"
+        className="flex items-center pb-20 cursor-pointer"
         onClick={() => handleBookshelf(bookshelf)}
       >
         <div
