@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useContext } from "react";
-import { UserContext } from "../../authenticate/UserContext";
 import infoIcon from "../../../images/icons/info.png";
 import favorites_ from "../../../images/icons/favorites.png";
 import haveRead_ from "../../../images/icons/have-read.png";

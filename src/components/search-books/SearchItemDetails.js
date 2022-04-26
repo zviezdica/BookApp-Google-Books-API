@@ -1,13 +1,10 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import close from "../../images/icons/close.png";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase-config";
+
 import favorites_ from '../../images/icons/favorites.png';
 import toRead_ from '../../images/icons/to-read.png';
-import readingNow from '../../images/icons/reading-now.png';
 import haveRead_ from '../../images/icons/have-read.png'
-  
 
 import { UserContext } from "../authenticate/UserContext";
 import ContentBtn from "../parts/ContentBtn";
@@ -102,7 +99,6 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
                 <BookOption type='toread' book={{id,title}} url={toRead_} text='Add to read'/>
                 <BookOption type='favorites' book={{id,title}} url={favorites_} text='Add to favorites'/>
                 <BookOption type='haveread' book={{id,title}} url={haveRead_} text='Add to have read'/>
-                
               </div>
             )}
             <div onClick={() => setBookshelfFlag(!bookshelfFlag)}>
