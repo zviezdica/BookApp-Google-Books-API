@@ -6,12 +6,12 @@ import { UserContext } from "../authenticate/UserContext";
 
 const MyBookshelf = () => {
   const [bookshelfBooks, setBookshelfBooks] = useState([]);
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const handleSelectedBookshelf = (books) => {
     setBookshelfBooks(books);
   };
-  console.log(bookshelfBooks)
+  console.log(bookshelfBooks);
 
   // useEffect(()=> {
   //   const shelves = ["favorites", "readnow", "toread", "haveread"];
@@ -27,7 +27,7 @@ const MyBookshelf = () => {
   //               books.push(doc.data());
   //             } else{
   //                 return;
-  //             } 
+  //             }
   //           });
   //           console.log(books)
   //         } catch (error) {
@@ -37,54 +37,49 @@ const MyBookshelf = () => {
   //         setBookshelfBooks(books)
   //       }
   //     })
-      
-      
+
   //     console.log(bookshelfBooks)
   //   }while(books.length == 0)
   // },[])
 
-    useEffect(()=> {
+  useEffect(() => {
     const shelves = ["favorites", "readnow", "toread", "haveread"];
     let books = [];
     // let i = 0;
     const handleBookshelf = async (bookshelf) => {
-      
-      console.log(bookshelf + 'evo')
+      console.log(bookshelf + "evo");
       // const books = [];
       const bookRef = collection(db, "books", user.uid, bookshelf);
       try {
-        
-
         const results = await getDocs(bookRef);
-        results && results.forEach((doc) => {
-          if (doc.data()) {
-            books.push(doc.data());
-          } else{
-              console.log('niente')
+        results &&
+          results.forEach((doc) => {
+            if (doc.data()) {
+              books.push(doc.data());
+            } else {
+              console.log("niente");
               return;
-          } 
-        });
-        console.log('ovo su ')
-        console.log(books)
+            }
+          });
+        console.log("ovo su ");
+        console.log(books);
       } catch (error) {
         console.log(error.message);
       }
-      setBookshelfBooks(books)
+      setBookshelfBooks(books);
     };
     shelves.forEach((shelf) => {
-     
-      console.log(books.length )
-      console.log(books)
-      if(books.length==0 ){
-        handleBookshelf(shelf)
-      }else return
-      
-    })
+      console.log(books.length);
+      console.log(books);
+      if (books.length == 0) {
+        handleBookshelf(shelf);
+      } else return;
+    });
     // while(books.length==0 ){
     //   handleBookshelf(shelves[i]);
     //   i++
     // }
-  },[])
+  }, []);
 
   return (
     <section className="container">
