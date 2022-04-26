@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const ResultItem = ({ item, handleDetails }) => {
   const { id, volumeInfo } = item;
   const { authors, imageLinks, publishedDate, subtitle, title } = volumeInfo;

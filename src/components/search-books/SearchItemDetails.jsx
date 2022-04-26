@@ -1,14 +1,9 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import close from "../../images/icons/close.png";
 
-import favorites_ from '../../images/icons/favorites.png';
-import toRead_ from '../../images/icons/to-read.png';
-import haveRead_ from '../../images/icons/have-read.png'
-
+import { close, favorites, toRead, haveRead } from "../../images/icons";
 import { UserContext } from "../authenticate/UserContext";
-import ContentBtn from "../parts/ContentBtn";
-import BookOption from "../parts/BookOption";
+import { ContentBtn, BookOption } from "../parts";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   console.log(data);
@@ -96,9 +91,24 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
           <div className="relative ">
             {bookshelfFlag && (
               <div className="flex flex-col justify-center items-center bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-90 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
-                <BookOption type='toread' book={{id,title}} url={toRead_} text='Add to read'/>
-                <BookOption type='favorites' book={{id,title}} url={favorites_} text='Add to favorites'/>
-                <BookOption type='haveread' book={{id,title}} url={haveRead_} text='Add to have read'/>
+                <BookOption
+                  type="toread"
+                  book={{ id, title }}
+                  url={toRead}
+                  text="Add to read"
+                />
+                <BookOption
+                  type="favorites"
+                  book={{ id, title }}
+                  url={favorites}
+                  text="Add to favorites"
+                />
+                <BookOption
+                  type="haveread"
+                  book={{ id, title }}
+                  url={haveRead}
+                  text="Add to have read"
+                />
               </div>
             )}
             <div onClick={() => setBookshelfFlag(!bookshelfFlag)}>

@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import EmbeddedViewer from "./EmbeddedViewer";
-import CurrentBookOptions from "./current-book-options/CurrentBookOptions";
+import { useState } from "react";
+import { EmbeddedViewer, CurrentBookOptions } from ".";
 
 const ReadNowSection = ({ book }) => {
   const [goToPage, setGoToPage] = useState(1);
