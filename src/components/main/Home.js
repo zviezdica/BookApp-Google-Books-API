@@ -1,5 +1,11 @@
+import { BestSellersSection } from ".";
+
 const Home = () => {
-  return <section>ja home</section>;
+  return (
+    <section>
+      <BestSellersSection />
+    </section>
+  );
 };
 
 export default Home;

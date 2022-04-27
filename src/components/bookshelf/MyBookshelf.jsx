@@ -44,10 +44,11 @@ const MyBookshelf = () => {
 
   useEffect(() => {
     const shelves = ["favorites", "readnow", "toread", "haveread"];
-    let books = [];
-    // let i = 0;
+    // let books = [];
+    let i = 0;
     const handleBookshelf = async (bookshelf) => {
-      console.log(bookshelf + "evo");
+      let books = [];
+      console.log(bookshelf + "bookshelf");
       // const books = [];
       const bookRef = collection(db, "books", user.uid, bookshelf);
       try {
@@ -56,25 +57,37 @@ const MyBookshelf = () => {
           results.forEach((doc) => {
             if (doc.data()) {
               books.push(doc.data());
+              console.log(books.length);
             } else {
               console.log("niente");
               return;
             }
           });
-        console.log("ovo su ");
         console.log(books);
+        if (books.length > 0) {
+          console.log(books);
+          setBookshelfBooks(books);
+          return;
+        } else {
+          while (i < shelves.length - 1 && books.length < 1) {
+            console.log(books.length);
+            console.log("i:");
+            console.log(i);
+            handleBookshelf(shelves[i + 1]);
+            i++;
+          }
+        }
       } catch (error) {
         console.log(error.message);
       }
-      setBookshelfBooks(books);
     };
-    shelves.forEach((shelf) => {
-      console.log(books.length);
-      console.log(books);
-      if (books.length == 0) {
-        handleBookshelf(shelf);
-      } else return;
-    });
+    handleBookshelf(shelves[i]);
+
+    // shelves.forEach((shelf) => {
+    //   console.log(books.length);
+    //   console.log(books);
+    //   handleBookshelf(shelf);
+    // });
     // while(books.length==0 ){
     //   handleBookshelf(shelves[i]);
     //   i++

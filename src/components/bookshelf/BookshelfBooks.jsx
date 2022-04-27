@@ -17,8 +17,6 @@ const BookshelfBooks = ({ books }) => {
         axios
           .get(apiRoot + book.bookId)
           .then((response) => {
-            console.log('response:')
-            console.log(response)
             booksArr = [...booksArr, response];
             setBooksData(booksArr);
             setLoading(false);
@@ -30,7 +28,6 @@ const BookshelfBooks = ({ books }) => {
     }
   }, [books]);
 
-  
   // useEffect(() => {
   //   console.log(loading);
   // });
