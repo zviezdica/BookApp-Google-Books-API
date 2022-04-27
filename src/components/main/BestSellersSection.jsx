@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
-import BestSellersCategory from "./BestSellersCategory";
-import BestSellersInCategory from "./BestSellersInCategory";
+import { BestSellersCategory, BestSellersInCategory } from ".";
 
 const axios = require("axios");
 
 const BestSellersSection = () => {
   const [results, setResults] = useState("");
+  const [activeCategory, setActiveCategory] = useState("");
+  const [booksInCategory, setBooksInCategory] = useState("");
+  console.log(activeCategory);
+
+  const handleActiveCategory = (category) => {
+    setActiveCategory(category);
+    console.log(activeCategory);
+  };
+
+  const handleCategoryBooks = (books) => {
+    setBooksInCategory(books);
+  };
 
   useEffect(() => {
     axios
@@ -14,16 +25,27 @@ const BestSellersSection = () => {
       )
       .then((res) => {
         setResults(res.data.results.lists);
+        setBooksInCategory(res.data.results.lists[0].books);
+        setActiveCategory(res.data.results.lists[0].list_id);
+        console.log(activeCategory);
       });
   }, []);
 
   return (
     <section className="container">
-      <BestSellersInCategory />
+      <BestSellersInCategory books={booksInCategory} />
       <section className="flex flex-wrap">
         {results &&
           results.map((list) => {
-            return <BestSellersCategory data={list} key={list.list_name} />;
+            return (
+              <BestSellersCategory
+                data={list}
+                key={list.list_name}
+                passActiveCategory={handleActiveCategory}
+                activeCategory={activeCategory}
+                passBooks={handleCategoryBooks}
+              />
+            );
           })}
       </section>
     </section>
