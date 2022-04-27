@@ -198,7 +198,7 @@ function App() {
               </h1>
             </div>
           )}
-          <header className="w-full xs:fixed top-0 bg-white z-1">
+          <header className="w-full xs:fixed top-0 bg-white z-2">
             <nav className="h-full w-full shadow-bottom">
               {bigScreen ? <NavBigScreen /> : <NavSmallScreen />}
             </nav>
@@ -211,10 +211,8 @@ function App() {
                 path="/search"
                 element={<SearchBooks passBookToRead={handleBookToRead} />}
               />
-              
-              <Route path="/bookshelf" element={<MyBookshelf /> }>
-                
-              </Route>
+
+              <Route path="/bookshelf" element={<MyBookshelf />}></Route>
               <Route
                 path="/readNow"
                 element={<ReadNowSection book={bookToRead} />}
