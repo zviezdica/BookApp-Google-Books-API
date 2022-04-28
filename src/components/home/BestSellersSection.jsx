@@ -7,11 +7,9 @@ const BestSellersSection = () => {
   const [results, setResults] = useState("");
   const [activeCategory, setActiveCategory] = useState("");
   const [booksInCategory, setBooksInCategory] = useState("");
-  console.log(activeCategory);
 
   const handleActiveCategory = (category) => {
     setActiveCategory(category);
-    console.log(activeCategory);
   };
 
   const handleCategoryBooks = (books) => {
@@ -27,9 +25,12 @@ const BestSellersSection = () => {
         setResults(res.data.results.lists);
         setBooksInCategory(res.data.results.lists[0].books);
         setActiveCategory(res.data.results.lists[0].list_id);
-        console.log(activeCategory);
       });
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [activeCategory]);
 
   return (
     <section className="container">

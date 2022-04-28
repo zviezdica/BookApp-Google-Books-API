@@ -22,7 +22,7 @@ import {
 import "./App.css";
 import { logoTransparent } from "./images/logo";
 import { NavBigScreen, NavSmallScreen } from "./components/navigation";
-import { Home } from "./components/main";
+import { Home } from "./components/home";
 import { SearchBooks } from "./components/search-books";
 import { MyBookshelf } from "./components/bookshelf";
 import { ReadNowSection } from "./components/read-now-section";
@@ -188,7 +188,7 @@ function App() {
       <Router>
         <div className="App relative min-h-100vh">
           {isIntroActive && (
-            <div className="intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-2">
+            <div className="intro-cover h-full w-full bg-dark-blue absolute top-0 left-0 bottom-0 transition-all duration-1000 z-5">
               <div
                 style={{ backgroundImage: `url(${logoTransparent})` }}
                 className="h-1/2 w-1/2 bg-center bg-cover absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
