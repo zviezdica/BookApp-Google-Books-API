@@ -28,13 +28,17 @@ const BestSellersSection = () => {
       });
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [activeCategory]);
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  // }, [activeCategory]);
 
   return (
-    <section className="container">
-      <BestSellersInCategory books={booksInCategory} />
+    <section className="container container--books-in-drawer">
+      <div className="mb-20">
+        <h2 className="text-32">Looking for a suggestion?</h2>
+        <h3 className="text-25 italic">NYT Best Sellers List</h3>
+      </div>
+      <h4 className="text-21 mb-10">Categories:</h4>
       <section className="flex flex-wrap">
         {results &&
           results.map((list) => {
@@ -48,7 +52,18 @@ const BestSellersSection = () => {
               />
             );
           })}
+        {results && (
+          <BestSellersCategory
+            data={results}
+            name={"All"}
+            passActiveCategory={handleActiveCategory}
+            activeCategory={activeCategory}
+            passBooks={handleCategoryBooks}
+          />
+        )}
       </section>
+
+      <BestSellersInCategory books={booksInCategory} />
     </section>
   );
 };
