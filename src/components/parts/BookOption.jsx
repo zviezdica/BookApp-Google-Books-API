@@ -5,7 +5,7 @@ const BookOption = ({ type, book, url, text }) => {
   const { handleAddToBookshelf } = useContext(UserContext);
   return (
     <div
-      className="flex items-center pb-20 hover:text-peacock-blue transition-color cursor-pointer w-max"
+      className="flex items-center pb-20 hover:text-peacock-blue transition-color cursor-pointer w-max hover:children-first:scale-125"
       onClick={() => handleAddToBookshelf(type, book.id, book.title)}
     >
       <div
