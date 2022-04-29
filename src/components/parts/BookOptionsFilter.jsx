@@ -5,8 +5,9 @@ import { db } from "../../firebase-config";
 
 import { collection, getDocs } from "firebase/firestore";
 
-const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
+const BookOptionsFilter = ({bookshelf, url, text, passBooks, selectedBookshelf}) => {
     const { user } = useContext(UserContext);
+    console.log(bookshelf==selectedBookshelf)
 
     const handleBookshelf = async (bookshelf) => {
         let books = [];
@@ -25,12 +26,12 @@ const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
         } catch (error) {
           console.log(error.message);
         }
-        passBooks(books);
+        passBooks(books, bookshelf);
       };
 
     return(
         <div
-        className="flex items-center pb-20 cursor-pointer"
+        className={"flex items-center pb-20 cursor-pointer hover:text-peacock-blue " + (selectedBookshelf==bookshelf? 'text-cerulean-blue' : ' text-dark-blue')}
         onClick={() => handleBookshelf(bookshelf)}
       >
         <div

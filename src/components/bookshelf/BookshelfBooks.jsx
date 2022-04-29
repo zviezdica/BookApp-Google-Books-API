@@ -4,9 +4,10 @@ import { Loader } from "../parts";
 
 const axios = require("axios");
 
-const BookshelfBooks = ({ books, isBooksInShelf }) => {
+const BookshelfBooks = ({ books, selectedBookshelf }) => {
   const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState("");
+  console.log(selectedBookshelf)
 
   useEffect(() => {
     let booksArr = [];
@@ -40,7 +41,7 @@ const BookshelfBooks = ({ books, isBooksInShelf }) => {
           return <BookInBookDrawer book={book} key={`bsh${book.data.id}`} />;
         })}
       {loading && <Loader />}
-      {!booksData && !loading && <h1>No books in this bookdrawer</h1>}
+      {!booksData && !loading && <h1>No books in {selectedBookshelf==='favorites'? 'Favorites' : selectedBookshelf==='readnow' ? 'Read now' : selectedBookshelf==='toread' ? 'To read' : 'Have read' }</h1>}
     </section>
   );
 };

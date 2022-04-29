@@ -7,14 +7,16 @@ import { UserContext } from "../authenticate/UserContext";
 const MyBookshelf = () => {
   const [bookshelfBooks, setBookshelfBooks] = useState([]);
   const [isBooksInShelf, setIsBooksInShelf] = useState(true);
+  const [selectedBookshelf, setSelectedBookshelf] = useState('')
   console.log(bookshelfBooks)
   console.log(Array.isArray(bookshelfBooks))
   console.log(bookshelfBooks===[])
   console.log(bookshelfBooks.length==0)
   const { user } = useContext(UserContext);
 
-  const handleSelectedBookshelf = (books) => {
+  const handleSelectedBookshelf = (books, bookshelf) => {
     setBookshelfBooks(books);
+    setSelectedBookshelf(bookshelf)
   };
 
   useEffect(() => {
@@ -61,8 +63,8 @@ const MyBookshelf = () => {
   return (
     <section className="container">
       <div className="flex divide-x-1 divide-peacock-blue h-60vh">
-        <BookshelfList passBooks={handleSelectedBookshelf} />
-        {bookshelfBooks && isBooksInShelf && <BookshelfBooks books={bookshelfBooks} isBooksInShelf={isBooksInShelf}/>}
+        <BookshelfList passBooks={handleSelectedBookshelf} selectedBookshelf={selectedBookshelf}/>
+        {bookshelfBooks && isBooksInShelf && <BookshelfBooks books={bookshelfBooks} isBooksInShelf={isBooksInShelf} selectedBookshelf={selectedBookshelf}/>}
         {!isBooksInShelf && !bookshelfBooks.length && <h2>No books in bookshelf</h2>}
       </div>
     </section>
