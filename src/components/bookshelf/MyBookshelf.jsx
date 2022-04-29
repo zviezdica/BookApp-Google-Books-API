@@ -6,6 +6,11 @@ import { UserContext } from "../authenticate/UserContext";
 
 const MyBookshelf = () => {
   const [bookshelfBooks, setBookshelfBooks] = useState([]);
+  const [isBooksInShelf, setIsBooksInShelf] = useState(true);
+  console.log(bookshelfBooks)
+  console.log(Array.isArray(bookshelfBooks))
+  console.log(bookshelfBooks===[])
+  console.log(bookshelfBooks.length==0)
   const { user } = useContext(UserContext);
 
   const handleSelectedBookshelf = (books) => {
@@ -14,12 +19,11 @@ const MyBookshelf = () => {
 
   useEffect(() => {
     const shelves = ["favorites", "readnow", "toread", "haveread"];
-    // let books = [];
+    let books = [];
     let i = 0;
     const handleBookshelf = async (bookshelf) => {
-      let books = [];
-      console.log(bookshelf + "bookshelf");
-      // const books = [];
+      books = [];
+      console.log(bookshelf + " bookshelf");
       const bookRef = collection(db, "books", user.uid, bookshelf);
       try {
         const results = await getDocs(bookRef);
@@ -33,19 +37,19 @@ const MyBookshelf = () => {
               return;
             }
           });
-        console.log(books);
+        console.log(books.length);
         if (books.length > 0) {
           console.log(books);
           setBookshelfBooks(books);
-          return;
-        } else {
-          while (i < shelves.length - 1 && books.length < 1) {
-            console.log(books.length);
-            console.log("i:");
-            console.log(i);
-            handleBookshelf(shelves[i + 1]);
-            i++;
-          }
+         
+        } else if(books.length == 0 && i<shelves.length-1) {
+          handleBookshelf(shelves[i+1])
+          i++
+          console.log(i)
+        }
+        else {
+          setIsBooksInShelf(false)
+          
         }
       } catch (error) {
         console.log(error.message);
@@ -58,7 +62,8 @@ const MyBookshelf = () => {
     <section className="container">
       <div className="flex divide-x-1 divide-peacock-blue h-60vh">
         <BookshelfList passBooks={handleSelectedBookshelf} />
-        <BookshelfBooks books={bookshelfBooks} />
+        {bookshelfBooks && isBooksInShelf && <BookshelfBooks books={bookshelfBooks} isBooksInShelf={isBooksInShelf}/>}
+        {!isBooksInShelf && !bookshelfBooks.length && <h2>No books in bookshelf</h2>}
       </div>
     </section>
   );

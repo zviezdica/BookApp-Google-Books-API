@@ -4,7 +4,7 @@ import { Loader } from "../parts";
 
 const axios = require("axios");
 
-const BookshelfBooks = ({ books }) => {
+const BookshelfBooks = ({ books, isBooksInShelf }) => {
   const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState("");
 
@@ -40,7 +40,7 @@ const BookshelfBooks = ({ books }) => {
           return <BookInBookDrawer book={book} key={`bsh${book.data.id}`} />;
         })}
       {loading && <Loader />}
-      {!booksData && !loading && <h1>no books</h1>}
+      {!booksData && !loading && <h1>No books in this bookdrawer</h1>}
     </section>
   );
 };

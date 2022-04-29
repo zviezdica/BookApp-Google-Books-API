@@ -13,7 +13,6 @@ const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
         const bookRef = collection(db, "books", user.uid, bookshelf);
         try {
           const results = await getDocs(bookRef);
-          console.log(results)
           results && results.forEach((doc) => {
             if (doc.data()) {
               books.push(doc.data());
@@ -23,7 +22,6 @@ const BookOptionsFilter = ({bookshelf, url, text, passBooks}) => {
                 return;
             } 
           });
-          console.log(books)
         } catch (error) {
           console.log(error.message);
         }

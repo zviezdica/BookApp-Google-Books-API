@@ -24,7 +24,7 @@ const BookshelfList = ({ passBooks }) => {
   // };
 
   return (
-    <section className="pr-20">
+    <section className="pr-120">
       <BookOptionsFilter bookshelf="favorites" url={favorites} text='Favorites' passBooks={passBooks} />
       <BookOptionsFilter bookshelf="readnow" url={readingNow} text='Read now' passBooks={passBooks} />
       <BookOptionsFilter bookshelf="toread" url={toRead} text='To read' passBooks={passBooks} />
