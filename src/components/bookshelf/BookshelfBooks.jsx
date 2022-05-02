@@ -7,7 +7,6 @@ const axios = require("axios");
 const BookshelfBooks = ({ books, selectedBookshelf }) => {
   const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState("");
-  console.log(selectedBookshelf)
 
   useEffect(() => {
     let booksArr = [];
@@ -41,7 +40,18 @@ const BookshelfBooks = ({ books, selectedBookshelf }) => {
           return <BookInBookDrawer book={book} key={`bsh${book.data.id}`} />;
         })}
       {loading && <Loader />}
-      {!booksData && !loading && <h1>No books in {selectedBookshelf==='favorites'? 'Favorites' : selectedBookshelf==='readnow' ? 'Read now' : selectedBookshelf==='toread' ? 'To read' : 'Have read' }</h1>}
+      {!booksData && !loading && (
+        <h1>
+          No books in{" "}
+          {selectedBookshelf === "favorites"
+            ? "Favorites"
+            : selectedBookshelf === "readnow"
+            ? "Read now"
+            : selectedBookshelf === "toread"
+            ? "To read"
+            : "Have read"}
+        </h1>
+      )}
     </section>
   );
 };

@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import { auth, db } from "./firebase-config";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 import {
   createUserWithEmailAndPassword,
@@ -42,30 +42,14 @@ function App() {
   const [pLLoaded, setPLLoaded] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [bookshelfFlag, setBookshelfFlag] = useState(false);
+  const [booksInBookshelf, setBooksInBookshelf] = useState("");
 
-  // console.log(db);
-  // const getData = async () => {
-  //   const querySnapshot = await getDocs(collection(db, "books"));
-  //   querySnapshot.forEach((doc) => {
-  //     console.log(doc);
-  //   });
-  // };
-  // getData();
-
-  //add google platform library
-  // useEffect(() => {
-  //   const scriptTag = document.createElement("script");
-  //   scriptTag.src = "https://apis.google.com/js/platform.js";
-  //   scriptTag.addEventListener("load", () => setPLLoaded(true));
-  //   scriptTag.id = "google-platform-library";
-  //   scriptTag.setAttribute("defer", "defer");
-  //   scriptTag.setAttribute("async", "async");
-  //   document.body.appendChild(scriptTag);
-  // }, []);
+  console.log(booksInBookshelf);
 
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
+    currentUser && handleBookshelf(currentUser.uid);
   });
 
   const register = async () => {
@@ -75,11 +59,37 @@ function App() {
         newUser.regEmail,
         newUser.regPassword
       );
-      console.log(user);
       handleLoginALert();
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleBookshelf = (uid) => {
+    let bookshelves = ["favorites", "readnow", "toread", "haveread"];
+    let allBooks = {};
+    bookshelves.forEach(async (shelf) => {
+      try {
+        const bookRef = collection(db, "books", uid, shelf);
+        const results = await getDocs(bookRef);
+        if (results) {
+          allBooks[shelf] = [];
+          results.forEach((doc) => {
+            if (doc.data()) {
+              allBooks[shelf].push(doc.data());
+            } else return;
+          });
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    });
+    console.log(allBooks);
+    if (Object.keys(allBooks) != 0) {
+      setBooksInBookshelf(allBooks);
+    }
+
+    return;
   };
 
   const login = async () => {
@@ -89,11 +99,13 @@ function App() {
         existingUser.email,
         existingUser.password
       );
-      console.log(user);
       handleLoginALert();
     } catch (error) {
       console.log(error.message);
     }
+    // finally {
+    //   user.uid && handleBookshelf("favorites", user.uid);
+    // }
   };
 
   const logout = async () => {

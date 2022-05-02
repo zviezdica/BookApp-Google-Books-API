@@ -1,12 +1,21 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { UserContext } from "../authenticate/UserContext";
 
 const BookOption = ({ type, book, url, text }) => {
   const { handleAddToBookshelf } = useContext(UserContext);
+  const optionDiv = useRef(null);
+  const passAddToBookshelf = () => {
+    optionDiv.current.classList.add("animate-ping-small");
+    handleAddToBookshelf(type, book.id, book.title);
+    setTimeout(() => {
+      optionDiv.current.classList.remove("animate-ping-small");
+    }, 300);
+  };
   return (
     <div
-      className="flex items-center pb-20 hover:text-peacock-blue transition-color cursor-pointer w-max hover:children-first:scale-125"
-      onClick={() => handleAddToBookshelf(type, book.id, book.title)}
+      className="flex items-center pb-20 hover:text-peacock-blue transition-color cursor-pointer w-max"
+      onClick={passAddToBookshelf}
+      ref={optionDiv}
     >
       <div
         style={{ backgroundImage: `url(${url})` }}

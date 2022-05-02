@@ -349,6 +349,21 @@ module.exports = {
       outlineWidth: {
         1000: "1000px",
       },
+      animation: {
+        "ping-small": "ping-small 0.3s linear 1 backwards",
+      },
+      keyframes: {
+        "ping-small": {
+          "50%": {
+            transform: "scale(1.05)",
+            // opacity: "0",
+          },
+          "100%": {
+            transform: "scale(1.0)",
+            // opacity: "0",
+          },
+        },
+      },
     },
   },
   corePlugins: {
