@@ -28,10 +28,6 @@ const BookshelfBooks = ({ books, selectedBookshelf }) => {
     }
   }, [books]);
 
-  // useEffect(() => {
-  //   console.log(loading);
-  // });
-
   return (
     <section className="xs:pl-20 container container--books-in-drawer flex flex-wrap">
       {booksData &&

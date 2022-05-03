@@ -11,8 +11,6 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const [isInreadnow, setIsInreadnow] = useState(false);
   const [isIntoread, setIsIntoread] = useState(false);
   const [isInhaveread, setIsInhaveread] = useState(false);
-  console.log(isInfavorites, isInreadnow, isIntoread, isInhaveread);
-  console.log(data);
   const { id, accessInfo, volumeInfo } = data;
   const {
     authors,
@@ -32,7 +30,6 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const { user, handleAddToBookshelf, bookshelfFlag, setBookshelfFlag } =
     useContext(UserContext);
   const { booksInBookshelf } = useContext(BooksContext);
-  console.log(booksInBookshelf);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
@@ -56,13 +53,9 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     setIsInreadnow(false);
     setIsIntoread(false);
     setIsInhaveread(false);
-    console.log("radim nešto");
     Object.keys(booksInBookshelf).forEach((key) => {
       booksInBookshelf[key].forEach((book) => {
-        console.log(book.bookId, book.name, id);
-
         if (book.bookId == id) {
-          console.log(key, book);
           key == "favorites"
             ? setisInfavorites(true)
             : key == "readnow"
@@ -71,15 +64,6 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
             ? setIsIntoread(true)
             : setIsInhaveread(true);
         }
-        // else {
-        //   key == "favorites"
-        //     ? setisInfavorites(false)
-        //     : key == "readnow"
-        //     ? setIsInreadnow(false)
-        //     : key == "toread"
-        //     ? setIsIntoread(false)
-        //     : setIsInhaveread(false);
-        // }
       });
     });
   });
@@ -145,7 +129,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
             ))}
           <div className="relative ">
             {bookshelfFlag && (
-              <div className="flex flex-col justify-center items-center bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-90 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
+              <div className="flex flex-col justify-center items-center bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-90 left-1/2 -translate-x-1/2 w-max children:cursor-pointer">
                 <BookOption
                   type="toread"
                   book={{ id, title }}

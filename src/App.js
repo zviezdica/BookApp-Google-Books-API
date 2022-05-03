@@ -51,8 +51,6 @@ function App() {
   const [bookshelfFlag, setBookshelfFlag] = useState(false);
   const [booksInBookshelf, setBooksInBookshelf] = useState("");
 
-  console.log(booksInBookshelf);
-
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -91,12 +89,7 @@ function App() {
         console.log(error.message);
       }
     });
-    console.log(allBooks);
-    // if (Object.keys(allBooks).length != 0) {
-    console.log("dobroje");
     setBooksInBookshelf(allBooks);
-    // }
-
     return;
   };
 
@@ -111,9 +104,6 @@ function App() {
     } catch (error) {
       console.log(error.message);
     }
-    // finally {
-    //   user.uid && handleBookshelf("favorites", user.uid);
-    // }
   };
 
   const logout = async () => {
@@ -146,14 +136,6 @@ function App() {
     setBookToRead(book);
   };
 
-  // useEffect(() => {
-  //   const q = query(collection(db, "books"));
-  //   const unsub = onSnapshot(q, (querySnapshot) => {
-  //     console.log(querySnapshot);
-  //     console.log(q);
-  //   });
-  // }, []);
-
   useEffect(() => {
     if (user) {
       handleBookshelf(user.uid);
@@ -170,7 +152,6 @@ function App() {
       let booksInThisShelf = booksInBookshelf[bookshelfname];
       booksInThisShelf.push(book);
       setBooksInBookshelf(...booksInBookshelf, booksInThisShelf);
-      console.log(booksInBookshelf);
     } catch (error) {
       console.log(error.message);
     }
@@ -181,14 +162,12 @@ function App() {
     const bookRef = doc(db, "books", user.uid, bookshelfname, id);
     try {
       await deleteDoc(bookRef);
-      console.log(booksInBookshelf);
       let filteredBooks = booksInBookshelf[bookshelfname].filter(
         (book) => book.bookId != id
       );
       let allBooks = booksInBookshelf;
       allBooks[bookshelfname] = filteredBooks;
       setBooksInBookshelf(allBooks);
-      console.log(allBooks);
     } catch (error) {
       console.log(error.message);
     }

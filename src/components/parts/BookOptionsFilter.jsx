@@ -12,7 +12,6 @@ const BookOptionsFilter = ({
 
   const handleBookshelf = (bookshelf) => {
     let filteredBooks = booksInBookshelf[bookshelf];
-    console.log(booksInBookshelf[bookshelf]);
     passBooks(filteredBooks, bookshelf);
   };
 

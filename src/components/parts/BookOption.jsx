@@ -16,7 +16,6 @@ const BookOption = ({ type, book, url, text, textDel, isInShelf }) => {
   };
 
   const passRemoveFromBookshelf = () => {
-    console.log("removing from bookshelf");
     handleRemoveFromBookshelf(type, book.id);
   };
 
