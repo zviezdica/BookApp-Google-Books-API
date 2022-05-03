@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { userIcon } from "../../images/icons";
-import { UserContext } from "../authenticate/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import { LogOut } from ".";
 
 const UserIcon = () => {

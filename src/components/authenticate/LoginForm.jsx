@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");

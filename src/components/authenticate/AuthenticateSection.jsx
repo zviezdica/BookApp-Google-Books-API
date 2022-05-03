@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RegisterForm, LoginForm } from ".";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import { Alert } from "../parts";
 // import LoginGoogle from "./google/LoginGoogle";
 // import LogoutGoogle from "./google/LogoutGoogle";

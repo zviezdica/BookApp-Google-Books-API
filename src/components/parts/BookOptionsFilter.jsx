@@ -1,9 +1,6 @@
 import { useContext } from "react";
-import { UserContext } from "../authenticate/UserContext";
-import { db } from "../../firebase-config";
-
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-
+import { BooksContext } from "../../contexts/BooksContext";
+// PREUZET BOOKSINBOOKSHELF I FILTRIRAT
 const BookOptionsFilter = ({
   bookshelf,
   url,
@@ -11,28 +8,12 @@ const BookOptionsFilter = ({
   passBooks,
   selectedBookshelf,
 }) => {
-  const { user } = useContext(UserContext);
-  console.log(bookshelf == selectedBookshelf);
+  const { booksInBookshelf } = useContext(BooksContext);
 
-  const handleBookshelf = async (bookshelf) => {
-    let books = [];
-    const bookRef1 = collection(db, "books", user.uid, bookshelf);
-    try {
-      const results = await getDocs(bookRef1);
-      results &&
-        results.forEach((doc) => {
-          if (doc.data()) {
-            books.push(doc.data());
-            console.log(doc.data());
-          } else {
-            console.log("niente");
-            return;
-          }
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-    passBooks(books, bookshelf);
+  const handleBookshelf = (bookshelf) => {
+    let filteredBooks = booksInBookshelf[bookshelf];
+    console.log(booksInBookshelf[bookshelf]);
+    passBooks(filteredBooks, bookshelf);
   };
 
   return (

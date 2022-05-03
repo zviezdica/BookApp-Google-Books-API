@@ -10,7 +10,13 @@ import {
 } from "react-router-dom";
 
 import { auth, db } from "./firebase-config";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 
 import {
   createUserWithEmailAndPassword,
@@ -27,7 +33,8 @@ import { SearchBooks } from "./components/search-books";
 import { MyBookshelf } from "./components/bookshelf";
 import { ReadNowSection } from "./components/read-now-section";
 import { AuthenticateSection } from "./components/authenticate";
-import { UserContext } from "./components/authenticate/UserContext";
+import { UserContext } from "./contexts/UserContext";
+import { BooksContext } from "./contexts/BooksContext";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -49,7 +56,7 @@ function App() {
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-    currentUser && handleBookshelf(currentUser.uid);
+    // currentUser && handleBookshelf(currentUser.uid);
   });
 
   const register = async () => {
@@ -85,9 +92,10 @@ function App() {
       }
     });
     console.log(allBooks);
-    if (Object.keys(allBooks) != 0) {
-      setBooksInBookshelf(allBooks);
-    }
+    // if (Object.keys(allBooks).length != 0) {
+    console.log("dobroje");
+    setBooksInBookshelf(allBooks);
+    // }
 
     return;
   };
@@ -146,12 +154,41 @@ function App() {
   //   });
   // }, []);
 
+  useEffect(() => {
+    if (user) {
+      handleBookshelf(user.uid);
+    }
+  }, [user]);
+
   const handleAddToBookshelf = async (bookshelfname, id, title) => {
     setBookshelfFlag(false);
     const bookRef = doc(db, "books", user.uid, bookshelfname, id);
     setDoc(bookRef, { merge: true });
     try {
-      await setDoc(bookRef, { bookId: `${id}`, name: `${title}` });
+      let book = { bookId: `${id}`, name: `${title}` };
+      await setDoc(bookRef, book);
+      let booksInThisShelf = booksInBookshelf[bookshelfname];
+      booksInThisShelf.push(book);
+      setBooksInBookshelf(...booksInBookshelf, booksInThisShelf);
+      console.log(booksInBookshelf);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleRemoveFromBookshelf = async (bookshelfname, id) => {
+    setBookshelfFlag(false);
+    const bookRef = doc(db, "books", user.uid, bookshelfname, id);
+    try {
+      await deleteDoc(bookRef);
+      console.log(booksInBookshelf);
+      let filteredBooks = booksInBookshelf[bookshelfname].filter(
+        (book) => book.bookId != id
+      );
+      let allBooks = booksInBookshelf;
+      allBooks[bookshelfname] = filteredBooks;
+      setBooksInBookshelf(allBooks);
+      console.log(allBooks);
     } catch (error) {
       console.log(error.message);
     }
@@ -193,6 +230,7 @@ function App() {
         accessToken,
         setAccessToken,
         handleAddToBookshelf,
+        handleRemoveFromBookshelf,
         bookshelfFlag,
         setBookshelfFlag,
       }}
@@ -216,20 +254,24 @@ function App() {
             </nav>
           </header>
           <main className="pt-40 xs:pt-150">
-            <Routes>
-              <Route path="/authenticate" element={<AuthenticateSection />} />
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/search"
-                element={<SearchBooks passBookToRead={handleBookToRead} />}
-              />
+            <BooksContext.Provider
+              value={{ booksInBookshelf, setBooksInBookshelf }}
+            >
+              <Routes>
+                <Route path="/authenticate" element={<AuthenticateSection />} />
+                <Route path="/" element={<Home />} />
 
-              <Route path="/bookshelf" element={<MyBookshelf />}></Route>
-              <Route
-                path="/readNow"
-                element={<ReadNowSection book={bookToRead} />}
-              />
-            </Routes>
+                <Route
+                  path="/search"
+                  element={<SearchBooks passBookToRead={handleBookToRead} />}
+                />
+                <Route path="/bookshelf" element={<MyBookshelf />} />
+                <Route
+                  path="/readNow"
+                  element={<ReadNowSection book={bookToRead} />}
+                />
+              </Routes>
+            </BooksContext.Provider>
           </main>
         </div>
       </Router>

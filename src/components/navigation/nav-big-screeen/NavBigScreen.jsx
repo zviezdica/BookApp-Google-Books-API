@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { logoBlue } from "../../../images/logo";
-import { UserContext } from "../../authenticate/UserContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { UserIcon } from "..";
 
 const NavBigScreen = () => {

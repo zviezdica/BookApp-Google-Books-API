@@ -1,11 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { close, favorites, toRead, haveRead } from "../../images/icons";
-import { UserContext } from "../authenticate/UserContext";
+import { UserContext } from "../../contexts/UserContext";
+import { BooksContext } from "../../contexts/BooksContext";
 import { ContentBtn, BookOption } from "../parts";
 
 const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
+  const [isInfavorites, setisInfavorites] = useState(false);
+  const [isInreadnow, setIsInreadnow] = useState(false);
+  const [isIntoread, setIsIntoread] = useState(false);
+  const [isInhaveread, setIsInhaveread] = useState(false);
+  console.log(isInfavorites, isInreadnow, isIntoread, isInhaveread);
   console.log(data);
   const { id, accessInfo, volumeInfo } = data;
   const {
@@ -25,6 +31,8 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const { embeddable, viewability } = accessInfo;
   const { user, handleAddToBookshelf, bookshelfFlag, setBookshelfFlag } =
     useContext(UserContext);
+  const { booksInBookshelf } = useContext(BooksContext);
+  console.log(booksInBookshelf);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
@@ -42,6 +50,39 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     });
     handleAddToBookshelf(readNow, id, title);
   };
+
+  useEffect(() => {
+    setisInfavorites(false);
+    setIsInreadnow(false);
+    setIsIntoread(false);
+    setIsInhaveread(false);
+    console.log("radim nešto");
+    Object.keys(booksInBookshelf).forEach((key) => {
+      booksInBookshelf[key].forEach((book) => {
+        console.log(book.bookId, book.name, id);
+
+        if (book.bookId == id) {
+          console.log(key, book);
+          key == "favorites"
+            ? setisInfavorites(true)
+            : key == "readnow"
+            ? setIsInreadnow(true)
+            : key == "toread"
+            ? setIsIntoread(true)
+            : setIsInhaveread(true);
+        }
+        // else {
+        //   key == "favorites"
+        //     ? setisInfavorites(false)
+        //     : key == "readnow"
+        //     ? setIsInreadnow(false)
+        //     : key == "toread"
+        //     ? setIsIntoread(false)
+        //     : setIsInhaveread(false);
+        // }
+      });
+    });
+  });
 
   return (
     <div className="details-card shadow-card flex flex-col container max-h-70vh bg-white fixed overflow-y-auto top-100 xs:top-130 lg:top-180 left-1/2 -translate-x-1/2 p-10">
@@ -81,13 +122,27 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
         )}
 
         <div className="flex flex-col sm:flex-row sm:w-full md:w-2/3 my-10">
-          {industryIdentifiers && embeddable && (
-            <div onClick={() => handleReadNow(industryIdentifiers, "readnow")}>
-              <Link to="/readNow">
-                <ContentBtn text="read now" />
-              </Link>
-            </div>
-          )}
+          {industryIdentifiers &&
+            embeddable &&
+            (!isInreadnow ? (
+              <div
+                onClick={() => handleReadNow(industryIdentifiers, "readnow")}
+              >
+                <Link to="/readNow">
+                  <ContentBtn text="read now" />
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <div
+                  onClick={() => handleReadNow(industryIdentifiers, "readnow")}
+                >
+                  <Link to="/readNow">
+                    <ContentBtn text="continue reading" />
+                  </Link>
+                </div>
+              </div>
+            ))}
           <div className="relative ">
             {bookshelfFlag && (
               <div className="flex flex-col justify-center items-center bg-white divide-y-1 divide-greyish border-1 rounded-md border-solid border-dark-blue uppercase text-12 px-5 text-center children:p-3 absolute -top-90 left-1/2 -translate-x-1/2 w-160 children:cursor-pointer">
@@ -96,18 +151,24 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
                   book={{ id, title }}
                   url={toRead}
                   text="Add to read"
+                  textDel="Remove from to read"
+                  isInShelf={isIntoread}
                 />
                 <BookOption
                   type="favorites"
                   book={{ id, title }}
                   url={favorites}
                   text="Add to favorites"
+                  textDel="Remove from favorites"
+                  isInShelf={isInfavorites}
                 />
                 <BookOption
                   type="haveread"
                   book={{ id, title }}
                   url={haveRead}
                   text="Add to have read"
+                  textDel="Remove from have read"
+                  isInShelf={isInhaveread}
                 />
               </div>
             )}

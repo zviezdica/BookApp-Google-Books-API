@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../authenticate/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const LogOut = () => {
   const { logout, setUserLoggedOut, setIsLogOutActive } =
