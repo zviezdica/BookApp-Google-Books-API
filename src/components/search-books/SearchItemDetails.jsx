@@ -27,12 +27,19 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
     title,
   } = volumeInfo;
   const { embeddable, viewability } = accessInfo;
-  const { user, handleAddToBookshelf, bookshelfFlag, setBookshelfFlag } =
-    useContext(UserContext);
+  const {
+    user,
+    handleAddToBookshelf,
+    handleRemoveFromBookshelf,
+    bookshelfFlag,
+    setBookshelfFlag,
+  } = useContext(UserContext);
   const { booksInBookshelf, setIdBook } = useContext(BooksContext);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
-    if (!industryIdentifiers) return;
+    if (!industryIdentifiers) {
+      return;
+    }
     let isbn = industryIdentifiers.filter(
       (identifier) => identifier.type === "ISBN_10"
     );
@@ -45,7 +52,37 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
       id,
       title,
     });
-    handleAddToBookshelf(readNow, id, title);
+    if (booksInBookshelf.readnow.length > 0) {
+      console.log("ima");
+      console.log(booksInBookshelf.readnow);
+      const bookAlreadyExists = booksInBookshelf.readnow.filter(
+        (book) => book.bookId == id
+      );
+      if (bookAlreadyExists.length > 0) {
+        console.log("isti su");
+        return;
+      } else {
+        console.log("idem dodat knjigu");
+        handleAddToBookshelf(readNow, id, title);
+      }
+    } else {
+      handleAddToBookshelf(readNow, id, title);
+      console.log("idem svakako dodat knjigu");
+    }
+    // Object.keys(booksInBookshelf).filter((key) => {
+    //   console.log(key);
+    //   if (key == "readnow") {
+    //     booksInBookshelf[key].forEach((book) => {
+    //       console.log(book.bookId, id);
+    //       if (book.bookId == id) {
+    //         return;
+    //       } else {
+    //         console.log("idem dodat knjigu");
+    //         handleAddToBookshelf(readNow, id, title);
+    //       }
+    //     });
+    //   } else handleAddToBookshelf(readNow, id, title);
+    // });
   };
 
   useEffect(() => {
@@ -118,12 +155,19 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
               </div>
             ) : (
               <div>
-                <div
-                  onClick={() => handleReadNow(industryIdentifiers, "readnow")}
-                >
-                  <Link to="/readNow">
-                    <ContentBtn text="continue reading" />
-                  </Link>
+                <div>
+                  <div
+                    onClick={() =>
+                      handleReadNow(industryIdentifiers, "readnow")
+                    }
+                  >
+                    <Link to="/readNow">
+                      <ContentBtn text="continue reading" />
+                    </Link>
+                  </div>
+                </div>
+                <div onClick={() => handleRemoveFromBookshelf("readnow", id)}>
+                  <ContentBtn text="Remove from read now" />
                 </div>
               </div>
             ))}

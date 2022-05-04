@@ -18,7 +18,7 @@ const BookOption = ({
     optionDiv.current.classList.add("animate-ping-small");
     handleAddToBookshelf(type, book.id, book.title);
     console.log("dadajem knjigu");
-    passClickChange(!isInShelf, type);
+    passClickChange && passClickChange(!isInShelf, type);
     setTimeout(() => {
       if (optionDiv.current.classList.contains("animate-ping-small"))
         optionDiv.current.classList.remove("animate-ping-small");
@@ -28,7 +28,7 @@ const BookOption = ({
   const passRemoveFromBookshelf = () => {
     handleRemoveFromBookshelf(type, book.id);
     console.log("mičem knjigu");
-    passClickChange(!isInShelf, type);
+    passClickChange && passClickChange(!isInShelf, type);
   };
 
   return (
