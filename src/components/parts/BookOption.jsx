@@ -1,7 +1,15 @@
 import { useContext, useRef } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-const BookOption = ({ type, book, url, text, textDel, isInShelf }) => {
+const BookOption = ({
+  type,
+  book,
+  url,
+  text,
+  textDel,
+  isInShelf,
+  passClickChange,
+}) => {
   const { handleAddToBookshelf, handleRemoveFromBookshelf } =
     useContext(UserContext);
   const optionDiv = useRef(null);
@@ -9,6 +17,8 @@ const BookOption = ({ type, book, url, text, textDel, isInShelf }) => {
   const passAddToBookshelf = () => {
     optionDiv.current.classList.add("animate-ping-small");
     handleAddToBookshelf(type, book.id, book.title);
+    console.log("dadajem knjigu");
+    passClickChange(!isInShelf, type);
     setTimeout(() => {
       if (optionDiv.current.classList.contains("animate-ping-small"))
         optionDiv.current.classList.remove("animate-ping-small");
@@ -17,6 +27,8 @@ const BookOption = ({ type, book, url, text, textDel, isInShelf }) => {
 
   const passRemoveFromBookshelf = () => {
     handleRemoveFromBookshelf(type, book.id);
+    console.log("mičem knjigu");
+    passClickChange(!isInShelf, type);
   };
 
   return (

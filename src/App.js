@@ -50,6 +50,7 @@ function App() {
   const [accessToken, setAccessToken] = useState("");
   const [bookshelfFlag, setBookshelfFlag] = useState(false);
   const [booksInBookshelf, setBooksInBookshelf] = useState("");
+  const [idBook, setIdBook] = useState(0);
 
   //authentication
   onAuthStateChanged(auth, (currentUser) => {
@@ -144,17 +145,20 @@ function App() {
 
   const handleAddToBookshelf = async (bookshelfname, id, title) => {
     setBookshelfFlag(false);
+    let booksInThisShelf = booksInBookshelf[bookshelfname];
+    let book = { bookId: `${id}`, name: `${title}` };
+    booksInThisShelf.push(book);
     const bookRef = doc(db, "books", user.uid, bookshelfname, id);
     setDoc(bookRef, { merge: true });
     try {
-      let book = { bookId: `${id}`, name: `${title}` };
       await setDoc(bookRef, book);
-      let booksInThisShelf = booksInBookshelf[bookshelfname];
-      booksInThisShelf.push(book);
-      setBooksInBookshelf(...booksInBookshelf, booksInThisShelf);
     } catch (error) {
       console.log(error.message);
     }
+    setBooksInBookshelf(
+      booksInBookshelf,
+      (booksInBookshelf[bookshelfname] = booksInThisShelf)
+    );
   };
 
   const handleRemoveFromBookshelf = async (bookshelfname, id) => {
@@ -234,7 +238,12 @@ function App() {
           </header>
           <main className="pt-40 xs:pt-150">
             <BooksContext.Provider
-              value={{ booksInBookshelf, setBooksInBookshelf }}
+              value={{
+                booksInBookshelf,
+                setBooksInBookshelf,
+                idBook,
+                setIdBook,
+              }}
             >
               <Routes>
                 <Route path="/authenticate" element={<AuthenticateSection />} />

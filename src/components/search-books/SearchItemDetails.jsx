@@ -29,7 +29,7 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   const { embeddable, viewability } = accessInfo;
   const { user, handleAddToBookshelf, bookshelfFlag, setBookshelfFlag } =
     useContext(UserContext);
-  const { booksInBookshelf } = useContext(BooksContext);
+  const { booksInBookshelf, setIdBook } = useContext(BooksContext);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) return;
