@@ -5,7 +5,7 @@ const RegisterForm = () => {
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
 
-  const { newUser, setNewUser } = useContext(UserContext);
+  const { setNewUser } = useContext(UserContext);
 
   const handleEmail = (e) => {
     setRegEmail(e.target.value);

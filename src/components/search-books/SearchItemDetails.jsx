@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { close, favorites, toRead, haveRead } from "../../images/icons";
-import { UserContext } from "../../contexts/UserContext";
+import { BookshelfContext } from "../../contexts/BookshelfContext";
 import { BooksContext } from "../../contexts/BooksContext";
 import { ContentBtn, BookOption } from "../parts";
 
@@ -28,13 +28,12 @@ const SearchItemDetails = ({ data, closeDetails, selectBookToRead }) => {
   } = volumeInfo;
   const { embeddable, viewability } = accessInfo;
   const {
-    user,
     handleAddToBookshelf,
     handleRemoveFromBookshelf,
     bookshelfFlag,
     setBookshelfFlag,
-  } = useContext(UserContext);
-  const { booksInBookshelf, setIdBook } = useContext(BooksContext);
+  } = useContext(BookshelfContext);
+  const { booksInBookshelf } = useContext(BooksContext);
 
   const handleReadNow = (industryIdentifiers, readNow) => {
     if (!industryIdentifiers) {

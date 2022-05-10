@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { BookshelfContext } from "../../contexts/BookshelfContext";
 
 const BookOption = ({
   type,
@@ -11,7 +11,7 @@ const BookOption = ({
   passClickChange,
 }) => {
   const { handleAddToBookshelf, handleRemoveFromBookshelf } =
-    useContext(UserContext);
+    useContext(BookshelfContext);
   const optionDiv = useRef(null);
 
   const passAddToBookshelf = () => {

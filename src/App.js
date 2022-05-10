@@ -33,8 +33,12 @@ import { SearchBooks } from "./components/search-books";
 import { MyBookshelf } from "./components/bookshelf";
 import { ReadNowSection } from "./components/read-now-section";
 import { AuthenticateSection } from "./components/authenticate";
-import { UserContext } from "./contexts/UserContext";
+import { UserrContext } from "./contexts/UserContext";
+import { UserChangeContext } from "./contexts/UserChangeContext";
+import { UserActivityContext } from "./contexts/UserActivityContext";
 import { BooksContext } from "./contexts/BooksContext";
+import { BookshelfContext } from "./contexts/BookshelfContext";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
   const bigScreen = useMediaQuery({ query: "(min-width: 768px)" });
@@ -198,24 +202,16 @@ function App() {
   return (
     <UserContext.Provider
       value={{
-        newUser,
-        setNewUser,
-        existingUser,
-        setExistingUser,
         user,
         logout,
-        isLogOutActive,
-        setIsLogOutActive,
-        userLoggedOut,
         setUserLoggedOut,
-        userLoggedIn,
-        setUserLoggedIn,
         accessToken,
         setAccessToken,
-        handleAddToBookshelf,
-        handleRemoveFromBookshelf,
-        bookshelfFlag,
-        setBookshelfFlag,
+        userLoggedOut,
+        userLoggedIn,
+        setUserLoggedIn,
+        setNewUser,
+        setExistingUser,
       }}
     >
       <Router>
@@ -237,29 +233,41 @@ function App() {
             </nav>
           </header>
           <main className="pt-40 xs:pt-150">
-            <BooksContext.Provider
+            <BookshelfContext.Provider
               value={{
-                booksInBookshelf,
-                setBooksInBookshelf,
-                idBook,
-                setIdBook,
+                handleAddToBookshelf,
+                handleRemoveFromBookshelf,
+                bookshelfFlag,
+                setBookshelfFlag,
               }}
             >
-              <Routes>
-                <Route path="/authenticate" element={<AuthenticateSection />} />
-                <Route path="/" element={<Home />} />
+              <BooksContext.Provider
+                value={{
+                  booksInBookshelf,
+                  setBooksInBookshelf,
+                  idBook,
+                  setIdBook,
+                }}
+              >
+                <Routes>
+                  <Route
+                    path="/authenticate"
+                    element={<AuthenticateSection />}
+                  />
+                  <Route path="/" element={<Home />} />
 
-                <Route
-                  path="/search"
-                  element={<SearchBooks passBookToRead={handleBookToRead} />}
-                />
-                <Route path="/bookshelf" element={<MyBookshelf />} />
-                <Route
-                  path="/readNow"
-                  element={<ReadNowSection book={bookToRead} />}
-                />
-              </Routes>
-            </BooksContext.Provider>
+                  <Route
+                    path="/search"
+                    element={<SearchBooks passBookToRead={handleBookToRead} />}
+                  />
+                  <Route path="/bookshelf" element={<MyBookshelf />} />
+                  <Route
+                    path="/readNow"
+                    element={<ReadNowSection book={bookToRead} />}
+                  />
+                </Routes>
+              </BooksContext.Provider>
+            </BookshelfContext.Provider>
           </main>
         </div>
       </Router>

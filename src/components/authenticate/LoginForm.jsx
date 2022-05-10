@@ -5,7 +5,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { existingUser, setExistingUser } = useContext(UserContext);
+  const { setExistingUser } = useContext(UserContext);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);

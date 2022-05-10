@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import searchBackground from "../../images/backgrounds/bookshelf.jpg";
+import searchBackgroundBig from "../../images/backgrounds/bookshelf-big.jpg";
+import searchBackgroundSmall from "../../images/backgrounds/bookshelf-small.jpg";
 import { search, noResults } from "../../images/icons";
 import { ResultItem, SearchItemDetails } from ".";
 
@@ -107,7 +108,11 @@ const SearchBooks = ({ passBookToRead }) => {
       <section>
         <div
           className="relative pt-1/2 sm:pt-2/5 md:pt-1/3 bg-cover bg-center bg-no-repeat "
-          style={{ backgroundImage: `url(${searchBackground})` }}
+          style={{
+            backgroundImage: `url(${
+              bigScreen ? searchBackgroundBig : searchBackgroundSmall
+            })`,
+          }}
         >
           <div className="bg-transparent-blue flex flex-col justify-center items-center absolute left-0 top-0 bottom-0 right-0">
             <label

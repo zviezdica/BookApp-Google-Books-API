@@ -5,7 +5,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import { UserIcon } from "..";
 
 const NavBigScreen = () => {
-  const { user, isLogOutActive } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <section className="container flex">

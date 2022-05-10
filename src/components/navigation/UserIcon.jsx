@@ -5,8 +5,10 @@ import { UserContext } from "../../contexts/UserContext";
 import { LogOut } from ".";
 
 const UserIcon = () => {
-  const { user, isLogOutActive, setIsLogOutActive } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [isLogOutActive, setIsLogOutActive] = useState(false);
   const mdScreen = useMediaQuery({ query: "(min-width: 992px)" });
+  console.log(isLogOutActive);
 
   return (
     <div className="relative">
@@ -20,7 +22,7 @@ const UserIcon = () => {
         ></div>
         {mdScreen && <h4 className="pl-10">{user.email}</h4>}
       </div>
-      {isLogOutActive && <LogOut />}
+      {isLogOutActive && <LogOut setIsLogOutActive={setIsLogOutActive} />}
     </div>
   );
 };
